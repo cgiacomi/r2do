@@ -16,4 +16,28 @@
 #  limitations under the License.
 #
 
-require 'yaml'
+class ToDo
+  attr_accessor :description
+  attr_reader :date_done
+  
+  def initialize(description)
+    @description = description
+    @done = false
+    @date_done = nil
+  end
+  
+  def done?()
+    return @done
+  end
+  
+  def completed()
+    @done = true
+    @date_done = DateTime.now
+  end
+
+  def to_s()
+    return "<#{description}>"
+  end
+
+  
+end
