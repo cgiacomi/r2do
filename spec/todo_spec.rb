@@ -24,9 +24,15 @@ describe ToDo do
   
   describe "#new" do
     context "with a description" do
-        it "returns a ToDo object" do
-            @todo.should be_an_instance_of ToDo
-        end
+      it "returns a ToDo object" do
+        @todo.should be_an_instance_of ToDo
+      end
+    end
+    
+    context "without a description" do
+      it "raises an error" do
+        expect { ToDo.new }.to raise_error(ArgumentError)
+      end
     end
   end
 
