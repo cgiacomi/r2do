@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 #
 #  Copyright 2012 Christian Giacomi http://www.christiangiacomi.com
 #
