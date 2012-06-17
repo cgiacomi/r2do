@@ -37,38 +37,50 @@ describe ToDo do
   end
 
   describe "#description" do
-  	it "returns the correct description" do
+    it "returns the correct description" do
       @todo.description.should eql "Task to complete"
     end
   end
 
   describe "#to_s" do
-  	it "returns the correct to string representation" do
+    it "returns the correct to string representation" do
       @todo.to_s.should eql "<Task to complete>"
-  	end
+    end
   end
   
   describe "#done" do
-  	it "returns false by default" do
-      @todo.done?.should eql false
-  	end
-  	
-  	it "should return true if the todo is done" do
-  	  @todo.completed()
-  	  @todo.done?.should eql true
-  	end
+    context "by default" do
+      it "returns false" do
+        @todo.done?.should eql false
+      end
+    end
+
+    context "when a todo is completed" do
+      it "returns true" do
+        @todo.completed()
+        @todo.done?.should eql true
+      end
+    end
   end
   
   describe "#date_done" do
-    it "should show the correct date of completion" do
-  	  @todo.completed()
-  	  @todo.date_done().strftime("%F").should eql DateTime.now().strftime("%F")
-  	end
-  	
-  	it "should not be possible to change the date_done" do
-  	  @todo.completed()
-  	  lambda{@todo.date_done = DateTime.now}.should raise_error(NoMethodError)     
-  	end
+    context "when a task is not completed" do
+      it "returns nil" do
+        @todo.date_done().should eql nil
+      end
+    end
+
+    context "when a task is completed" do
+      it "returns the correct date" do
+        @todo.completed()
+        @todo.date_done().strftime("%F").should eql DateTime.now().strftime("%F")
+      end
+
+      it "cannot be modified" do
+        @todo.completed()
+        lambda{@todo.date_done = DateTime.now}.should raise_error(NoMethodError)     
+      end
+    end  
   end
   
 end
