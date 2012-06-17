@@ -15,50 +15,50 @@
 #
 
 require 'spec_helper'
-require_relative '../lib/todo'
+require_relative '../lib/task'
 
-describe ToDo do
+describe Task do
   before :each do
-    @todo = ToDo.new("Task to complete")    
+    @task = Task.new("Task to complete")    
   end
   
   describe "#new" do
     context "with a description" do
-      it "returns a ToDo object" do
-        @todo.should be_an_instance_of ToDo
+      it "returns a Task object" do
+        @task.should be_an_instance_of Task
       end
     end
     
     context "without a description" do
       it "raises an error" do
-        expect { ToDo.new }.to raise_error(ArgumentError)
+        expect { Task.new }.to raise_error(ArgumentError)
       end
     end
   end
 
   describe "#description" do
     it "returns the correct description" do
-      @todo.description.should eql "Task to complete"
+      @task.description.should eql "Task to complete"
     end
   end
 
   describe "#to_s" do
     it "returns the correct to string representation" do
-      @todo.to_s.should eql "<Task to complete>"
+      @task.to_s.should eql "<Task to complete>"
     end
   end
   
   describe "#done" do
     context "by default" do
       it "returns false" do
-        @todo.done?.should eql false
+        @task.done?.should eql false
       end
     end
 
-    context "when a todo is completed" do
+    context "when a task is completed" do
       it "returns true" do
-        @todo.completed()
-        @todo.done?.should eql true
+        @task.completed()
+        @task.done?.should eql true
       end
     end
   end
@@ -66,19 +66,19 @@ describe ToDo do
   describe "#date_done" do
     context "when a task is not completed" do
       it "returns nil" do
-        @todo.date_done().should eql nil
+        @task.date_done().should eql nil
       end
     end
 
     context "when a task is completed" do
       it "returns the correct date" do
-        @todo.completed()
-        @todo.date_done().strftime("%F").should eql DateTime.now().strftime("%F")
+        @task.completed()
+        @task.date_done().strftime("%F").should eql DateTime.now().strftime("%F")
       end
 
       it "cannot be modified" do
-        @todo.completed()
-        lambda{@todo.date_done = DateTime.now}.should raise_error(NoMethodError)     
+        @task.completed()
+        lambda{@task.date_done = DateTime.now}.should raise_error(NoMethodError)     
       end
     end  
   end

@@ -14,7 +14,7 @@
 #  limitations under the License.
 #
 
-class ToDo
+class Task
   attr_accessor :description
   attr_reader :date_done
   
