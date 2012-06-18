@@ -78,7 +78,7 @@ describe Task do
 
       it "cannot be modified" do
         @task.completed()
-        lambda{@task.date_done = DateTime.now}.should raise_error(NoMethodError)     
+        expect { @task.date_done = DateTime.now }.to raise_error(NoMethodError)
       end
     end  
   end

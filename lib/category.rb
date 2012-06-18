@@ -15,10 +15,16 @@
 #
 
 class Category
-  attr_accessor :description
+  attr_accessor :description, :tasks
   
   def initialize(description)
     @description = description
+    @tasks = Array.new
   end
   
+  def add(task)
+  	raise ArgumentError unless not task.nil?
+
+  	@tasks.push(task)
+  end
 end

@@ -28,12 +28,34 @@ describe Category do
       it "returns a Category object" do
         @category.should be_an_instance_of Category
       end
+
+      it "contains no tasks" do
+        @category.should have(0).tasks
+      end
     end
     
     context "without a description" do
       it "raises an error" do
-        lambda{Category.new}.should raise_error(ArgumentError)
+        expect{ Category.new }.to raise_error(ArgumentError)
       end
     end
   end
+
+  describe "#add" do
+    context "a nil task" do
+      it "raises and error" do
+        expect{ @category.add(nil) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "with empty category" do
+      it "has one task" do
+        task = double("task")
+        @category.add(task)
+        @category.should have(1).tasks
+      end
+    end
+
+  end
+
 end
