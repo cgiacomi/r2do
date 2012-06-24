@@ -36,15 +36,27 @@ describe Task do
     end
   end
 
-  describe "#description" do
+  describe "#description" do    
     it "returns the correct description" do
       @task.description.should eql "Task to complete"
     end
   end
 
   describe "#to_s" do
-    it "returns the correct to string representation" do
-      @task.to_s.should eql "<Task to complete>"
+    context "on a task that is not completed" do
+      it "returns the correct to string representation" do
+        result = "%-30s [ ] " % ["Task to complete"]
+        @task.to_s.should eql result
+      end
+    end
+
+    context "on a task that is complete" do
+      it "returns the correct to string representation" do
+        date = DateTime.now.strftime('(%a %b %e, %Y)')
+        result = "%-30s [x] %s" % ["Task to complete", date]
+        @task.completed()
+        @task.to_s.should eql result
+      end
     end
   end
   

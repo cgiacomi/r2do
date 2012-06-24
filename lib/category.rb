@@ -23,8 +23,19 @@ class Category
   end
   
   def add(task)
-  	raise ArgumentError unless not task.nil?
+    raise ArgumentError unless not task.nil?
+    @tasks.push(task)
+  end
 
-  	@tasks.push(task)
+  def to_s()
+    count = 0
+    result = StringIO.new
+
+    @tasks.each do | task |
+      count += 1
+      result << "#{count}. %s\n" % task
+    end
+
+    return result.string
   end
 end

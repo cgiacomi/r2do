@@ -16,6 +16,7 @@
 
 require 'spec_helper'
 require_relative '../lib/category'
+require_relative '../lib/task'
 
 describe Category do
   
@@ -48,7 +49,7 @@ describe Category do
       end
     end
 
-    context "with empty category" do
+    context "in empty category" do
       it "has one task" do
         task = double("task")
         @category.add(task)
@@ -56,6 +57,36 @@ describe Category do
       end
     end
 
+    context "in a category with one task" do 
+      it "has two tasks" do
+        @category.add(double("task 1"))
+        @category.should have(1).tasks
+
+        @category.add(double("task 2"))
+        @category.should have(2).tasks
+      end
+    end
+  end
+
+  describe "#to_s" do
+    context "with one task" do
+      it "returns a description of the task" do
+        result = "1. %-30s [ ] \n" % ["Sample task"]
+
+        @category.add(Task.new("Sample task"))
+        @category.to_s.should eql result 
+      end
+    end
+
+    context "with two tasks" do
+      it "returns the correct description of the tasks" do
+        result = "1. %-30s [ ] \n2. %-30s [ ] \n" % ["First task", "Second task"]
+
+        @category.add(Task.new("First task"))
+        @category.add(Task.new("Second task"))
+        @category.to_s.should eql result 
+      end
+    end
   end
 
 end

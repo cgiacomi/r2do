@@ -34,7 +34,15 @@ class Task
   end
 
   def to_s()
-    return "<#{description}>"
+    completed = ' '
+    date = ''
+
+    if done? 
+      completed = 'x'
+      date = @date_done.strftime('(%a %b %e, %Y)')
+    end
+
+    return "%-30s [%s] %s" % [@description, completed, date]
   end
 
   
