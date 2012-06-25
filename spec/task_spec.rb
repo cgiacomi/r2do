@@ -15,23 +15,23 @@
 #
 
 require 'spec_helper'
-require_relative '../lib/task'
+require_relative '../lib/r2do/task'
 
-describe Task do
+describe R2do::Task do
   before :each do
-    @task = Task.new("Task to complete")    
+    @task = R2do::Task.new("Task to complete")    
   end
   
   describe "#new" do
     context "with a description" do
       it "returns a Task object" do
-        @task.should be_an_instance_of Task
+        @task.should be_an_instance_of R2do::Task
       end
     end
     
     context "without a description" do
       it "raises an error" do
-        expect { Task.new }.to raise_error(ArgumentError)
+        expect { R2do::Task.new }.to raise_error(ArgumentError)
       end
     end
   end

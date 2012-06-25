@@ -14,28 +14,32 @@
 #  limitations under the License.
 #
 
-class Category
-  attr_accessor :description, :tasks
-  
-  def initialize(description)
-    @description = description
-    @tasks = Array.new
-  end
-  
-  def add(task)
-    raise ArgumentError unless not task.nil?
-    @tasks.push(task)
-  end
+module R2do
 
-  def to_s()
-    count = 0
-    result = StringIO.new
-
-    @tasks.each do | task |
-      count += 1
-      result << "#{count}. %s\n" % task
+  class Category
+    attr_accessor :description, :tasks
+    
+    def initialize(description)
+      @description = description
+      @tasks = Array.new
+    end
+    
+    def add(task)
+      raise ArgumentError unless not task.nil?
+      @tasks.push(task)
     end
 
-    return result.string
+    def to_s()
+      count = 0
+      result = StringIO.new
+
+      @tasks.each do | task |
+        count += 1
+        result << "#{count}. %s\n" % task
+      end
+
+      return result.string
+    end
   end
+
 end

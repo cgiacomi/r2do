@@ -15,19 +15,19 @@
 #
 
 require 'spec_helper'
-require_relative '../lib/category'
-require_relative '../lib/task'
+require_relative '../lib/r2do/category'
+require_relative '../lib/r2do/task'
 
-describe Category do
+describe R2do::Category do
   
   before :each do
-    @category = Category.new("A category")    
+    @category = R2do::Category.new("A category")    
   end
   
   describe "#new" do
     context "with a description" do
       it "returns a Category object" do
-        @category.should be_an_instance_of Category
+        @category.should be_an_instance_of R2do::Category
       end
 
       it "contains no tasks" do
@@ -37,7 +37,7 @@ describe Category do
     
     context "without a description" do
       it "raises an error" do
-        expect{ Category.new }.to raise_error(ArgumentError)
+        expect{ R2do::Category.new }.to raise_error(ArgumentError)
       end
     end
   end
@@ -73,7 +73,7 @@ describe Category do
       it "returns a description of the task" do
         result = "1. %-30s [ ] \n" % ["Sample task"]
 
-        @category.add(Task.new("Sample task"))
+        @category.add(R2do::Task.new("Sample task"))
         @category.to_s.should eql result 
       end
     end
@@ -82,8 +82,8 @@ describe Category do
       it "returns the correct description of the tasks" do
         result = "1. %-30s [ ] \n2. %-30s [ ] \n" % ["First task", "Second task"]
 
-        @category.add(Task.new("First task"))
-        @category.add(Task.new("Second task"))
+        @category.add(R2do::Task.new("First task"))
+        @category.add(R2do::Task.new("Second task"))
         @category.to_s.should eql result 
       end
     end
