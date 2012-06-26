@@ -24,11 +24,19 @@ module R2do
       @tasks = Array.new
     end
     
+    # Adds the object into the specific Category.
+    #
+    # @param [Task] task the task to add.
+    # @raise [ArgumentError] if task is nil.
     def add(task)
       raise ArgumentError unless not task.nil?
       @tasks.push(task)
     end
     
+    # Removes the object from the specific Category.
+    #
+    # @param [Task] task the task to remove.
+    # @raise [Exceptions::TaskNotFoundError] if task is not found.
     def remove(task)
       raise Exceptions::TaskNotFoundError.new()
     end

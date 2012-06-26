@@ -25,10 +25,16 @@ module R2do
       @date_done = nil
     end
     
+    # Gets the completed status of the specific task.
+    #
+    # @return [bool] true if the task is completed.
     def done?()
       return @done
     end
     
+    # Flags the specific task as completed.
+    #
+    # @return [DateTime] the date and time of completion.
     def completed()
       @done = true
       @date_done = DateTime.now
