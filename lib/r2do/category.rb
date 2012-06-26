@@ -28,6 +28,11 @@ module R2do
       raise ArgumentError unless not task.nil?
       @tasks.push(task)
     end
+    
+    def remove(task)
+      raise Exceptions::TaskNotFoundError.new()
+    end
+    
 
     def to_s()
       count = 0

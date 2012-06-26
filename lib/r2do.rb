@@ -14,6 +14,10 @@
 #  limitations under the License.
 #
 
+require 'r2do/category'
+require 'r2do/task'
+require 'r2do/exceptions/task_not_found'
+
 module R2do
 
   class App

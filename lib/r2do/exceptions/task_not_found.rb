@@ -14,5 +14,11 @@
 #  limitations under the License.
 #
 
-require 'yaml'
-require 'r2do'
+module R2do
+  module Exceptions
+
+    class TaskNotFoundError < Exception  
+    end
+
+  end
+end
