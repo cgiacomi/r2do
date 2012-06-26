@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'r2do'
+puts R2do::App.new(ARGV).to_s()

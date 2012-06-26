@@ -16,12 +16,14 @@
 
 module R2do
 
-  def main()
-    puts "r2do"
-  end
+  class App
+    def initialize(args)
+      #do some work
+    end
 
-  if __FILE__ == $0
-    main()
+    def to_s()
+      return "Hello world"
+    end
   end
 
 end
