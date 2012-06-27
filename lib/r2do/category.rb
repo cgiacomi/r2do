@@ -38,7 +38,7 @@ module R2do
     # @param [Task] task the task to remove.
     # @raise [Exceptions::TaskNotFoundError] if task is not found.
     def remove(task)
-      raise Exceptions::TaskNotFoundError.new()
+      @tasks.delete(task) { raise Exceptions::TaskNotFoundError.new() }
     end
     
 

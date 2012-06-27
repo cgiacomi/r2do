@@ -73,7 +73,32 @@ module R2do
         it "raises an error" do
           expect{ @category.remove(Task.new("Sample Task")) }.to raise_error(Exceptions::TaskNotFoundError)        
         end
-      end    
+      end 
+      
+      context "on a category that doesn't contain the task" do
+        it "raises an error" do
+          @category.add(Task.new("My Task"))
+          expect{ @category.remove(Task.new("Task to remove")) }.to raise_error(Exceptions::TaskNotFoundError)        
+        end
+      end  
+      
+      context "on the correct category" do
+        it "returns the task" do
+          task = Task.new("My Task")
+          @category.add(task)
+          removed_task = @category.remove(task)
+          removed_task.should eql task
+        end
+        
+        it "has a task less" do
+          task = Task.new("My Task")
+          @category.add(task)
+          @category.should have(1).tasks
+          
+          removed_task = @category.remove(task)
+          @category.should have(0).tasks          
+        end
+      end       
     end
 
     describe "#to_s" do
