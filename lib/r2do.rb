@@ -27,10 +27,7 @@ module R2do
 
   class App
     def initialize(args)
-      @options = OptionsParser.parse(args) 
-      
-      
-           
+      @options = args
     end
 
     def to_s()
