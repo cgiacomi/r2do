@@ -71,14 +71,14 @@ module R2do
     describe "#remove" do
       context "in empty category" do
         it "raises an error" do
-          expect{ @category.remove(Task.new("Sample Task")) }.to raise_error(Exceptions::TaskNotFoundError)        
+          expect{ @category.remove(Task.new("Sample Task")) }.to raise_error(TaskNotFoundError)        
         end
       end 
       
       context "on a category that doesn't contain the task" do
         it "raises an error" do
           @category.add(Task.new("My Task"))
-          expect{ @category.remove(Task.new("Task to remove")) }.to raise_error(Exceptions::TaskNotFoundError)        
+          expect{ @category.remove(Task.new("Task to remove")) }.to raise_error(TaskNotFoundError)        
         end
       end  
       

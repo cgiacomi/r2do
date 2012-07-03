@@ -14,28 +14,6 @@
 #  limitations under the License.
 #
 
-require 'optparse'
-require 'ostruct'
-
-require 'r2do/category'
-require 'r2do/task'
-require 'r2do/exceptions'
-require 'r2do/version'
-
-
 module R2do
-
-  class App
-    def initialize(args)
-      @options = OptionsParser.parse(args) 
-      
-      
-           
-    end
-
-    def to_s()
-      return @options
-    end
-  end
-
+  class TaskNotFoundError < Exception; end;
 end
