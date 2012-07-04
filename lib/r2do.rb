@@ -20,19 +20,54 @@ require 'ostruct'
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
+require 'r2do/command'
 require 'r2do/version'
 
 
 module R2do
-
   class App
     def initialize(args)
-      @options = args
+      @args = args
+      @commands = create_commands()
     end
-
-    def to_s()
-      return @options
+    
+    def create_commands()
+      cat_command = Command.new('cat', 'category', 'description', method(:create_category))
+      version_command = Command.new('-v', '--version', 'Prints the application version', method(:show_version))
+      help_command = Command.new('-h', '--help', 'You are looking at it.', method(:show_help))
+            
+      cmds = Hash.new
+      cmds[cat_command.switch] = cat_command
+      cmds[version_command.switch] = version_command 
+      cmds[help_command.switch] = help_command 
+      
+      cmds    
     end
+    
+    def run()      
+      option = @args[0]
+      
+      if @args.length > 0 and @commands.has_key?(option)
+        cmd = @commands[option]
+        cmd.execute(@args)
+      else
+        #print the help -h
+        puts "should print the help"
+      end      
+    end
+    
+    def create_category(args)
+      puts "Create a new category"
+    end
+    
+    def show_help(args)
+      puts "Show the help"
+    end
+    
+    def show_version(args)
+      puts R2do::VERSION
+    end
+    
   end
 
 end
