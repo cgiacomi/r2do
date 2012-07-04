@@ -30,19 +30,23 @@ module R2do
       @args = args
       @commands = create_commands()
     end
-    
+
+ 
     def create_commands()
-      cat_command = Command.new('cat', 'category', 'description', method(:create_category))
-      version_command = Command.new('-v', '--version', 'Prints the application version', method(:show_version))
-      help_command = Command.new('-h', '--help', 'You are looking at it.', method(:show_help))
+      cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:create_category))
+      cats_command = Command.new('cats', 'categories', nil, 'description', method(:show_categories))
+      version_command = Command.new('-v', '--version', nil, 'Prints the application version', method(:show_version))
+      help_command = Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
             
       cmds = Hash.new
       cmds[cat_command.switch] = cat_command
+      cmds[cats_command.switch] = cats_command
       cmds[version_command.switch] = version_command 
       cmds[help_command.switch] = help_command 
       
       cmds    
     end
+
     
     def run()      
       option = @args[0]
@@ -51,19 +55,37 @@ module R2do
         cmd = @commands[option]
         cmd.execute(@args)
       else
-        #print the help -h
-        puts "should print the help"
+        puts "r2do: '#{option}' is not an r2do command. See 'r2do --h'."
       end      
     end
+
     
     def create_category(args)
-      puts "Create a new category"
+      if args.length < 2
+        raise ArgumentError, "The 'Category' command requires a name argument."
+      end 
+
+      category_name = args[1]
+      cat = Category.new(category_name)
+
+      puts "Switched to #{category_name} category"
+    end
+
+
+    def show_categories(args)
+      puts "todo: show all the available categories"
     end
     
+
     def show_help(args)
-      puts "Show the help"
+      puts "The most commonly used r2do commands are:"
+      
+      @commands.each do |key, value|
+        puts "   %s" % value.to_s()
+      end
     end
     
+
     def show_version(args)
       puts R2do::VERSION
     end

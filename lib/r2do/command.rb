@@ -17,7 +17,7 @@
 class Command
   attr_reader :switch, :name, :description
 
-  def initialize(switch, name, description, callback)
+  def initialize(switch, name, argument, description, callback)
     raise ArgumentError unless not switch.nil? and
                                 not name.nil? and 
                                 not description.nil? and
@@ -31,6 +31,11 @@ class Command
     
   def execute(args)
     @callback.call(args)
+  end
+
+
+  def to_s()
+    return "%-10s %s" % [@switch, @description]
   end
   
 end
