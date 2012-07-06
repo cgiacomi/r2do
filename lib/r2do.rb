@@ -14,13 +14,13 @@
 #  limitations under the License.
 #
 
-require 'optparse'
-require 'ostruct'
+require 'yaml'
 
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
 require 'r2do/command'
+require 'r2do/controller'
 require 'r2do/version'
 
 
@@ -29,6 +29,7 @@ module R2do
     def initialize(args)
       @args = args
       @commands = create_commands()
+      @controller = Controller.new()
     end
 
  
@@ -55,7 +56,7 @@ module R2do
         cmd = @commands[option]
         cmd.execute(@args)
       else
-        puts "r2do: '#{option}' is not an r2do command. See 'r2do --h'."
+        puts "r2do: '#{option}' is not an r2do command. See 'r2do -h'."
       end      
     end
 
