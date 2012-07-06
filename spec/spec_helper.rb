@@ -14,5 +14,8 @@
 #  limitations under the License.
 #
 
+require 'simplecov'
+SimpleCov.start
+
 require 'yaml'
 require 'r2do'
