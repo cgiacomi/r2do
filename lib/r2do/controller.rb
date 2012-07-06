@@ -14,8 +14,20 @@
 #  limitations under the License.
 #
 
-require 'simplecov'
-SimpleCov.start
+module R2do
 
-require 'yaml'
-require 'r2do'
+  class Controller
+
+    def initialize()
+      @storage_file = File.new('r2do_data.yml', 'r')
+
+      ObjectSpace.define_finalizer( self, self.class.finalize(@storage_file) )
+    end
+
+    def self.finalize(storage_file)
+      proc { storage_file.close }
+    end
+
+  end
+
+end
