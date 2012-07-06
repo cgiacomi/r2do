@@ -14,11 +14,8 @@
 #  limitations under the License.
 #
 
-<<<<<<< HEAD
-=======
 require 'yaml'
 
->>>>>>> 7abac2c655982a1a14e5032575fa9b230446f635
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
