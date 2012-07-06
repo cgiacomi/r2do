@@ -14,9 +14,6 @@
 #  limitations under the License.
 #
 
-require 'optparse'
-require 'ostruct'
-
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
