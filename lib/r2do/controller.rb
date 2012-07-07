@@ -17,16 +17,27 @@
 module R2do
 
   class Controller
-  	attr_accessor :categories, :now
+  	attr_accessor :categories, :current_category
 
     def initialize()
-      @categories = []
-      @now = nil
+      @categories = Hash.new
+      @current_category = nil
     end
 
-    def set_now(category)
-      @categories << category
-      @now = category
+    def set_current(category)
+      @current_category = category
+    end
+
+    def contains?(category_name)
+      @categories.has_key?(category_name)
+    end
+
+    def get(category_name)
+      @categories[category_name]
+    end
+
+    def add(category)
+      @categories[category.name] = category
     end
 
   end

@@ -35,34 +35,19 @@ module R2do
         end
 
         it "has no selected category" do
-          @controller.now.should eql nil
+          @controller.current_category.should eql nil
         end
       end
     end
 
-    describe "#set_now" do
+    describe "#add" do
       context "adding one category" do
         it "contains one category" do
-          @controller.set_now(Category.new("A sample category"))
+          @controller.add(Category.new("A sample category"))
           @controller.should have(1).categories
         end
       end
     end
-
-    # describe "#save" do
-    #   context "adding one category" do
-    #     it "saves one category" do
-    #       file = 'sample.yml'
-    #       controller = Controller.new(file)    
-    #       controller.set_now(Category.new("A sample category"))
-    #       controller.should have(1).categories
-    #       controller.save
-
-    #       controller = Controller.new(file)    
-    #       controller.should have(1).categories
-    #     end
-    #   end
-    # end
 
   end
 

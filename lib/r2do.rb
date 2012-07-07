@@ -42,7 +42,7 @@ module R2do
 
  
     def create_commands()
-      cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:create_category))
+      cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:handle_category))
       cats_command = Command.new('show', 'categories', nil, 'description', method(:show_categories))
       now_command = Command.new('now', 'current', nil, 'description', method(:show_current))
       version_command = Command.new('-v', '--version', nil, 'Prints the application version', method(:show_version))
@@ -80,30 +80,38 @@ module R2do
     end
 
     
-    def create_category(args)
+    def handle_category(args)
       if args.length < 2
-        raise ArgumentError, "The 'Category' command requires a name argument."
+        raise ArgumentError, "The 'cat' command requires a name argument."
       end 
 
+      new = ''
       category_name = args[1]
-      cat = Category.new(category_name)
-      @controller.set_now(cat)
+      if @controller.contains?(category_name)
+        cat = @controller.get(category_name)
+      else
+        extra = 'new '
+        cat = Category.new(category_name)
+        @controller.add(cat)
+      end
+
+      @controller.set_current(cat)
       @modified = true
 
-      puts "Switched to '#{category_name}' category"
+      puts "Switched to #{extra}category '#{category_name}'"
     end
 
 
     def show_categories(args)
-      @controller.categories.each do | cat | 
-        star = (cat == @controller.now && "*") || ' '
-        puts "#{star} #{cat.description}" 
+      @controller.categories.each do |key, value| 
+        star = (value == @controller.current_category && "*") || ' '
+        puts "#{star} #{value.name}" 
       end
     end
 
 
     def show_current(args)
-      puts @controller.now.description
+      puts @controller.current_category.name
     end
     
 

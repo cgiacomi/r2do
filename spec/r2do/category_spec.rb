@@ -25,7 +25,7 @@ module R2do
     end
   
     describe "#new" do
-      context "with a description" do
+      context "with a name" do
         it "returns a Category object" do
           @category.should be_an_instance_of Category
         end
@@ -33,9 +33,13 @@ module R2do
         it "contains no tasks" do
           @category.should have(0).tasks
         end
+
+        it "contains the correct name" do
+          @category.name.should eql "A category"
+        end
       end
     
-      context "without a description" do
+      context "without a name" do
         it "raises an error" do
           expect{ Category.new }.to raise_error(ArgumentError)
         end

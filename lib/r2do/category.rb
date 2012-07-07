@@ -17,13 +17,13 @@
 module R2do
 
   class Category
-    attr_accessor :description, :tasks
+    attr_accessor :name, :tasks
     
     # Creates a new instance of a Category
     #
     # @param [String] desctiption the description for this category
-    def initialize(description)
-      @description = description
+    def initialize(name)
+      @name = name
       @tasks = Array.new
     end
     
