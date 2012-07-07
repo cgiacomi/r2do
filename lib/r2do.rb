@@ -96,13 +96,14 @@ module R2do
 
     def show_categories(args)
       @controller.categories.each do | cat | 
-        puts cat.description
+        star = (cat == @controller.now && "*") || ' '
+        puts "#{star} #{cat.description}" 
       end
     end
 
 
     def show_current(args)
-      puts @controller.now().description
+      puts @controller.now.description
     end
     
 
