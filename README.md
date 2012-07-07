@@ -1,6 +1,6 @@
 # r2do
 
-r2do is a simple todo gem to help remember any things that come to mind while developing your application
+r2do is a simple todo gem to help you remember anything that comes to mind. r2do can be used for normal daily tasks or for your ruby development.
 
 ## Installation
 
@@ -10,7 +10,7 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -18,7 +18,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+r2do is still in early development and there are many things missing at present.
+
+As r2do evolves this usage section will reflect the new changes.
+
+At present this is what is available.
+
+
+To create a new category or to switch to an existing category:
+
+    r2do cat 'My new category'
+
+or
+
+    r2do cat MyProject
+
+To list existing categories:
+
+    r2do show
+
+To see the current category:
+
+    r2do now
 
 ## Contributing
 
