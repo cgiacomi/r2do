@@ -17,9 +17,11 @@
 module R2do
   
   class Task
-    attr_accessor :description
-    attr_reader :date_done
+    attr_accessor :description, :date_done
     
+    # Creates a new instance of a Task
+    #
+    # @param [String] desctiption the description for this task
     def initialize(description)
       @description = description
       @done = false
@@ -41,6 +43,9 @@ module R2do
       @date_done = DateTime.now
     end
 
+    # Returns a string representation of this Task
+    #
+    # @return [String] the representation of this Task
     def to_s()
       completed = ' '
       date = ''

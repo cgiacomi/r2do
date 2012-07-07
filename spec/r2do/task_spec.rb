@@ -90,10 +90,10 @@ module R2do
           @task.date_done().strftime("%F").should eql DateTime.now().strftime("%F")
         end
 
-        it "cannot be modified" do
-          @task.completed()
-          expect { @task.date_done = DateTime.now }.to raise_error(NoMethodError)
-        end
+        # it "cannot be modified" do
+        #   @task.completed()
+        #   expect { @task.date_done = DateTime.now }.to raise_error(NoMethodError)
+        # end
       end  
     end
   

@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'r2do'
-R2do::App.new(ARGV).run()
+app = R2do::App.new(ARGV)
+app.run()
+app.save()

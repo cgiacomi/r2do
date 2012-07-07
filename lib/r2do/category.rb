@@ -19,6 +19,9 @@ module R2do
   class Category
     attr_accessor :description, :tasks
     
+    # Creates a new instance of a Category
+    #
+    # @param [String] desctiption the description for this category
     def initialize(description)
       @description = description
       @tasks = Array.new
@@ -41,7 +44,9 @@ module R2do
       @tasks.delete(task) { raise TaskNotFoundError.new() }
     end
     
-
+    # Returns a string representation of this Category
+    #
+    # @return [String] the representation of this Category
     def to_s()
       count = 0
       result = StringIO.new

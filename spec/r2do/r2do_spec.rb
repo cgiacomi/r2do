@@ -14,21 +14,9 @@
 #  limitations under the License.
 #
 
-module R2do
+# require 'spec_helper'
 
-  class Controller
-  	attr_accessor :categories, :now
+# module R2do
 
-    def initialize()
-      @categories = []
-      @now = nil
-    end
 
-    def set_now(category)
-      @categories << category
-      @now = category
-    end
-
-  end
-
-end
+# end

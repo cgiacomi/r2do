@@ -29,19 +29,29 @@ module R2do
     def initialize(args)
       @args = args
       @commands = create_commands()
-      @controller = Controller.new()
+      @modified = false
+
+      @file_name = 'r2do_data.yml'
+      if File.exists?(@file_name)
+        file = File.open(@file_name, "rb")
+        @controller = YAML::load(file.read)
+      else
+        @controller = Controller.new       
+      end
     end
 
  
     def create_commands()
       cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:create_category))
-      cats_command = Command.new('cats', 'categories', nil, 'description', method(:show_categories))
+      cats_command = Command.new('show', 'categories', nil, 'description', method(:show_categories))
+      now_command = Command.new('now', 'current', nil, 'description', method(:show_current))
       version_command = Command.new('-v', '--version', nil, 'Prints the application version', method(:show_version))
       help_command = Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
             
       cmds = Hash.new
       cmds[cat_command.switch] = cat_command
       cmds[cats_command.switch] = cats_command
+      cmds[now_command.switch] = now_command
       cmds[version_command.switch] = version_command 
       cmds[help_command.switch] = help_command 
       
@@ -60,6 +70,15 @@ module R2do
       end      
     end
 
+
+    def save()
+      if @modified
+        file = File.new(@file_name, 'w')
+        file.write(YAML.dump(@controller))
+        file.close()
+      end
+    end
+
     
     def create_category(args)
       if args.length < 2
@@ -68,13 +87,22 @@ module R2do
 
       category_name = args[1]
       cat = Category.new(category_name)
+      @controller.set_now(cat)
+      @modified = true
 
-      puts "Switched to #{category_name} category"
+      puts "Switched to '#{category_name}' category"
     end
 
 
     def show_categories(args)
-      puts "todo: show all the available categories"
+      @controller.categories.each do | cat | 
+        puts cat.description
+      end
+    end
+
+
+    def show_current(args)
+      puts @controller.now().description
     end
     
 

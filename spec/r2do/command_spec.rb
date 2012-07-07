@@ -49,10 +49,7 @@ module R2do
           expect{ Command.new('cat', 'category', nil, 'desctiption', nil) }.to raise_error(ArgumentError)
         end
       end
-    end
-    
-    
-    
+    end    
     
   end
   
