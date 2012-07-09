@@ -17,7 +17,10 @@
 module R2do
   
   class Task
-    attr_accessor :description, :date_done
+    # @return [String] the description for this task.
+    attr_accessor :description
+    # @return [DateTime] the date and time of completion.
+    attr_accessor :date_done
     
     # Creates a new instance of a Task
     #

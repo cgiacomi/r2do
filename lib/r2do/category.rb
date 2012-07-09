@@ -17,11 +17,14 @@
 module R2do
 
   class Category
-    attr_accessor :name, :tasks
+    # @return [String] the name of this category.
+    attr_accessor :name
+    # @return [Array] the tasks this category contains.
+    attr_accessor :tasks
     
     # Creates a new instance of a Category
     #
-    # @param [String] desctiption the description for this category
+    # @param [String] name the name for this category
     def initialize(name)
       @name = name
       @tasks = Array.new
@@ -31,6 +34,7 @@ module R2do
     #
     # @param [Task] task the task to add.
     # @raise [ArgumentError] if task is nil.
+    # @return [void]
     def add(task)
       raise ArgumentError unless not task.nil?
       @tasks.push(task)
@@ -40,6 +44,7 @@ module R2do
     #
     # @param [Task] task the task to remove.
     # @raise [Exceptions::TaskNotFoundError] if task is not found.
+    # @return [void]
     def remove(task)
       @tasks.delete(task) { raise TaskNotFoundError.new() }
     end

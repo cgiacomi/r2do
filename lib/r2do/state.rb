@@ -16,26 +16,47 @@
 
 module R2do
 
-  class Controller
-  	attr_accessor :categories, :current_category
+  class State
+    # @return [Hash] the collection of categories created by the user.
+  	attr_accessor :categories
+    # @return [Category] the current category the user is working on.
+    attr_accessor :current_category
 
+    # Creates a new instance of the State
+    #
     def initialize()
       @categories = Hash.new
       @current_category = nil
     end
 
+    # Sets a Category as the current one.
+    #
+    # @param [Category] category the category to be set as current.
+    # @return [void]
     def set_current(category)
       @current_category = category
     end
 
+    # Checks if a category with a specific name already exists.
+    #
+    # @param [String] category_name the name of the category to check.
+    # @return [bool] true if the category is already present.
     def contains?(category_name)
       @categories.has_key?(category_name)
     end
 
+    # Retrieves a specific Category.
+    #
+    # @param [String] category_name the name of the category to retrieve.
+    # @return [Category] the category identified by category_name.
     def get(category_name)
       @categories[category_name]
     end
 
+    # Adds a category.
+    #
+    # @param [Category] category the category to add.
+    # @return [void]
     def add(category)
       @categories[category.name] = category
     end

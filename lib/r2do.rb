@@ -20,12 +20,16 @@ require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
 require 'r2do/command'
-require 'r2do/controller'
+require 'r2do/state'
 require 'r2do/version'
 
 
 module R2do
   class App
+
+    # Creates an instance of the application.
+    #
+    # @param [Array] args the command line args.
     def initialize(args)
       @args = args
       @commands = create_commands()
@@ -34,13 +38,15 @@ module R2do
       @file_name = 'r2do_data.yml'
       if File.exists?(@file_name)
         file = File.open(@file_name, "rb")
-        @controller = YAML::load(file.read)
+        @state = YAML::load(file.read)
       else
-        @controller = Controller.new       
+        @state = State.new       
       end
     end
 
- 
+    # Creates the list of commands the application responds to.
+    #
+    # @return [Hash] the collection of commands.
     def create_commands()
       cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:handle_category))
       cats_command = Command.new('show', 'categories', nil, 'description', method(:show_categories))
@@ -58,7 +64,9 @@ module R2do
       cmds    
     end
 
-    
+    # Evaluates the command passed by the user and calls the corresponding application command.
+    #
+    # @return [void]
     def run()      
       option = @args[0]
       
@@ -74,7 +82,7 @@ module R2do
     def save()
       if @modified
         file = File.new(@file_name, 'w')
-        file.write(YAML.dump(@controller))
+        file.write(YAML.dump(@state))
         file.close()
       end
     end
@@ -87,15 +95,15 @@ module R2do
 
       new = ''
       category_name = args[1]
-      if @controller.contains?(category_name)
-        cat = @controller.get(category_name)
+      if @state.contains?(category_name)
+        cat = @state.get(category_name)
       else
         extra = 'new '
         cat = Category.new(category_name)
-        @controller.add(cat)
+        @state.add(cat)
       end
 
-      @controller.set_current(cat)
+      @state.set_current(cat)
       @modified = true
 
       puts "Switched to #{extra}category '#{category_name}'"
@@ -103,20 +111,20 @@ module R2do
 
 
     def show_categories(args)
-      @controller.categories.each do |key, value| 
-        star = (value == @controller.current_category && "*") || ' '
-        puts "#{star} #{value.name}" 
+      @state.categories.each do |key, value| 
+        current = (value == @state.current_category && "*") || ' '
+        puts "#{current} #{value.name}" 
       end
     end
 
 
     def show_current(args)
-      puts @controller.current_category.name
+      puts @state.current_category.name
     end
     
 
     def show_help(args)
-      puts "The most commonly used r2do commands are:"
+      puts "The most commonly used r2do commands are:\n"
       
       @commands.each do |key, value|
         puts "   %s" % value.to_s()

@@ -14,40 +14,50 @@
 #  limitations under the License.
 #
 
-class Command
-  attr_reader :switch, :name, :description
+module R2do
 
-  # Creates an instance of a Command
-  #
-  # @param [String] switch the abbreviated name for this command
-  # @param [String] name the full name for this command
-  # @param [String] argument the optional argument for commands that have arguments
-  # @param [String] description the command's description
-  # @param [callback] callback the callback method for this command
-  def initialize(switch, name, argument, description, callback)
-    raise ArgumentError unless not switch.nil? and
-                                not name.nil? and 
-                                not description.nil? and
-                                not callback.nil?
+  class Command
+    # @return [String] the value for the command switch.
+    attr_reader :switch
+    # @return [String] the name of this command.
+    attr_reader :name
+    # @return [String] the description for the command.
+    attr_reader :description
+
+    # Creates an instance of a Command
+    #
+    # @param [String] switch the abbreviated name for this command
+    # @param [String] name the full name for this command
+    # @param [String] argument the optional argument for commands that have arguments
+    # @param [String] description the command's description
+    # @param [callback] callback the callback method for this command
+    def initialize(switch, name, argument, description, callback)
+      raise ArgumentError unless not switch.nil? and
+                                  not name.nil? and 
+                                  not description.nil? and
+                                  not callback.nil?
+      
+      @switch = switch
+      @name = name
+      @description = description
+      @callback = callback
+    end
+      
+    # Executes the callback of this command
+    # 
+    # @param [Array] args the collection of arguments
+    # @return [void]
+    def execute(args)
+      @callback.call(args)
+    end
+
+    # Returns a string representation of this Command
+    #
+    # @return [String] the representation of this Command
+    def to_s()
+      return "%-10s %s" % [@switch, @description]
+    end
     
-    @switch = switch
-    @name = name
-    @description = description
-    @callback = callback
-  end
-    
-  # Executes the callback of this command
-  # 
-  # @param [Array] args the collection of arguments
-  def execute(args)
-    @callback.call(args)
   end
 
-  # Returns a string representation of this Command
-  #
-  # @return [String] the representation of this Command
-  def to_s()
-    return "%-10s %s" % [@switch, @description]
-  end
-  
 end

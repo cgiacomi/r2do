@@ -18,24 +18,24 @@ require 'spec_helper'
 
 module R2do
 
-  describe Controller do
+  describe State do
 
     before :each do
-      @controller = Controller.new()    
+      @state = State.new()    
     end
 
     describe "#new" do
       context "default constructor" do
-        it "returns a Controller object" do
-          @controller.should be_an_instance_of Controller
+        it "returns a State object" do
+          @state.should be_an_instance_of State
         end
 
         it "contains no Categories" do
-          @controller.should have(0).categories
+          @state.should have(0).categories
         end
 
         it "has no selected category" do
-          @controller.current_category.should eql nil
+          @state.current_category.should eql nil
         end
       end
     end
@@ -43,8 +43,8 @@ module R2do
     describe "#add" do
       context "adding one category" do
         it "contains one category" do
-          @controller.add(Category.new("A sample category"))
-          @controller.should have(1).categories
+          @state.add(Category.new("A sample category"))
+          @state.should have(1).categories
         end
       end
     end
