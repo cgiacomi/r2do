@@ -40,7 +40,7 @@ module R2do
         file = File.open(@file_name, "rb")
         @state = YAML::load(file.read)
       else
-        @state = State.new       
+        @state = State.new
       end
     end
 
@@ -48,34 +48,40 @@ module R2do
     #
     # @return [Hash] the collection of commands.
     def create_commands()
-      cat_command = Command.new('cat', 'category', 'NAME', 'description', method(:handle_category))
-      cats_command = Command.new('show', 'categories', nil, 'description', method(:show_categories))
-      now_command = Command.new('now', 'current', nil, 'description', method(:show_current))
-      version_command = Command.new('-v', '--version', nil, 'Prints the application version', method(:show_version))
-      help_command = Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
-            
-      cmds = Hash.new
-      cmds[cat_command.switch] = cat_command
-      cmds[cats_command.switch] = cats_command
-      cmds[now_command.switch] = now_command
-      cmds[version_command.switch] = version_command 
-      cmds[help_command.switch] = help_command 
-      
-      cmds    
+      cmd_list = Array.new
+      cmd_list << Command.new('cat', '--category', 'NAME', 'description', method(:handle_category))
+      cmd_list << Command.new('show', '--categories', nil, 'description', method(:show_categories))
+      cmd_list << Command.new('now', '--current', nil, 'description', method(:show_current))
+      cmd_list << Command.new('task', '--task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
+
+      cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
+      cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
+
+
+
+      commands = Hash.new
+      cmd_list.each do |cmd|
+        commands[cmd.switch] = cmd
+      end
+
+      commands
     end
 
     # Evaluates the command passed by the user and calls the corresponding application command.
     #
     # @return [void]
-    def run()      
+    def run()
       option = @args[0]
-      
+
+
       if @args.length > 0 and @commands.has_key?(option)
         cmd = @commands[option]
         cmd.execute(@args)
+      elsif @args.length > 0
+        invalid_command(option)
       else
-        puts "r2do: '#{option}' is not an r2do command. See 'r2do -h'."
-      end      
+        show_help(@args)
+      end
     end
 
 
@@ -87,11 +93,11 @@ module R2do
       end
     end
 
-    
+
     def handle_category(args)
       if args.length < 2
         raise ArgumentError, "The 'cat' command requires a name argument."
-      end 
+      end
 
       new = ''
       category_name = args[1]
@@ -110,32 +116,50 @@ module R2do
     end
 
 
+    def handle_task(args)
+      if @state.current_category
+        task = Task.new(args[1])
+
+        @state.current_category.add(task)
+        puts "Created new task"
+      end
+    end
+
+
     def show_categories(args)
-      @state.categories.each do |key, value| 
+      @state.categories.each do |key, value|
         current = (value == @state.current_category && "*") || ' '
-        puts "#{current} #{value.name}" 
+        puts "#{current} #{value.name}"
       end
     end
 
 
     def show_current(args)
-      puts @state.current_category.name
+      if not @state.current_category
+        puts "No category is currently selected."
+      else
+        puts @state.current_category.name
+      end
     end
-    
+
+
+    def invalid_command(option)
+      puts "r2do: '#{option}' is not an r2do command. See 'r2do -h'."
+    end
 
     def show_help(args)
       puts "The most commonly used r2do commands are:\n"
-      
+
       @commands.each do |key, value|
         puts "   %s" % value.to_s()
       end
     end
-    
+
 
     def show_version(args)
       puts R2do::VERSION
     end
-    
+
   end
 
 end
