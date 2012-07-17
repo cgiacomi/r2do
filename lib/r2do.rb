@@ -22,10 +22,16 @@ require 'r2do/exceptions'
 require 'r2do/command'
 require 'r2do/state'
 require 'r2do/version'
+require 'r2do/handle_category'
+require 'r2do/handle_task'
+require 'r2do/show_categories'
+require 'r2do/show_current'
+
 
 
 module R2do
   class App
+    include R2do
 
     # Creates an instance of the application.
     #
@@ -58,7 +64,6 @@ module R2do
       cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
 
 
-
       commands = Hash.new
       cmd_list.each do |cmd|
         commands[cmd.switch] = cmd
@@ -84,7 +89,9 @@ module R2do
       end
     end
 
-
+    # Saves the state of the application
+    #
+    # @return [void]
     def save()
       if @modified
         file = File.new(@file_name, 'w')
@@ -93,60 +100,18 @@ module R2do
       end
     end
 
-
-    def handle_category(args)
-      if args.length < 2
-        raise ArgumentError, "The 'cat' command requires a name argument."
-      end
-
-      new = ''
-      category_name = args[1]
-      if @state.contains?(category_name)
-        cat = @state.get(category_name)
-      else
-        extra = 'new '
-        cat = Category.new(category_name)
-        @state.add(cat)
-      end
-
-      @state.set_current(cat)
-      @modified = true
-
-      puts "Switched to #{extra}category '#{category_name}'"
-    end
-
-
-    def handle_task(args)
-      if @state.current_category
-        task = Task.new(args[1])
-
-        @state.current_category.add(task)
-        puts "Created new task"
-      end
-    end
-
-
-    def show_categories(args)
-      @state.categories.each do |key, value|
-        current = (value == @state.current_category && "*") || ' '
-        puts "#{current} #{value.name}"
-      end
-    end
-
-
-    def show_current(args)
-      if not @state.current_category
-        puts "No category is currently selected."
-      else
-        puts @state.current_category.name
-      end
-    end
-
-
+    # Invalid command handler
+    #
+    # @param [String] option the option the user passed the application
+    # @return [void]
     def invalid_command(option)
       puts "r2do: '#{option}' is not an r2do command. See 'r2do -h'."
     end
 
+    # Show the help command
+    #
+    # @param [Array] args the list of args the user passed the application
+    # @return [void]
     def show_help(args)
       puts "The most commonly used r2do commands are:\n"
 
@@ -155,7 +120,10 @@ module R2do
       end
     end
 
-
+    # Show the version number of the application
+    #
+    # @param [Array] args the list of args the user passed the application
+    # @return [void]
     def show_version(args)
       puts R2do::VERSION
     end

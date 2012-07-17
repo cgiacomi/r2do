@@ -15,6 +15,17 @@
 #
 
 module R2do
-  class TaskNotFoundError < Exception; end;
-  class CategoryNotSelectedError < Exception; end;
+  module_function
+
+  def show_current(args)
+    if not @state.current_category
+      puts "No category is currently selected."
+    else
+      puts @state.current_category.name
+      @state.current_category.tasks.each do |task|
+        puts "   #{task}"
+      end
+    end
+  end
+
 end

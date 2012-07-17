@@ -15,13 +15,13 @@
 #
 
 module R2do
-  
+
   class Task
     # @return [String] the description for this task.
     attr_accessor :description
     # @return [DateTime] the date and time of completion.
     attr_accessor :date_done
-    
+
     # Creates a new instance of a Task
     #
     # @param [String] desctiption the description for this task
@@ -30,14 +30,14 @@ module R2do
       @done = false
       @date_done = nil
     end
-    
+
     # Gets the completed status of the specific task.
     #
     # @return [bool] true if the task is completed.
     def done?()
       return @done
     end
-    
+
     # Flags the specific task as completed.
     #
     # @return [DateTime] the date and time of completion.
@@ -53,7 +53,7 @@ module R2do
       completed = ' '
       date = ''
 
-      if done? 
+      if done?
         completed = 'x'
         date = @date_done.strftime('(%a %b %e, %Y)')
       end

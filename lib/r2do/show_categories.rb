@@ -15,6 +15,13 @@
 #
 
 module R2do
-  class TaskNotFoundError < Exception; end;
-  class CategoryNotSelectedError < Exception; end;
+  module_function
+
+  def show_categories(args)
+    @state.categories.each do |key, value|
+      current = (value == @state.current_category && "*") || ' '
+      puts "#{current} #{value.name}"
+    end
+  end
+
 end

@@ -21,15 +21,33 @@ module R2do
     attr_accessor :name
     # @return [Array] the tasks this category contains.
     attr_accessor :tasks
-    
+    # @return [Task] the current task
+    attr_accessor :current_task
+
+
     # Creates a new instance of a Category
     #
     # @param [String] name the name for this category
     def initialize(name)
       @name = name
       @tasks = Array.new
+      @current_task = nil
     end
-    
+
+    # Finds a task based on the description.
+    #
+    # @param [String] description the task description.
+    # @return [Task] the task identified by description.
+    def find_by_description(description)
+      @tasks.each do |task|
+        if task.description == description
+          return task
+        end
+      end
+
+      return nil
+    end
+
     # Adds the object into the specific Category.
     #
     # @param [Task] task the task to add.
@@ -39,7 +57,15 @@ module R2do
       raise ArgumentError unless not task.nil?
       @tasks.push(task)
     end
-    
+
+    # Sets a Task as the current one.
+    #
+    # @param [Task] category the category to be set as current.
+    # @return [void]
+    def set_current(task)
+      @current_task = task
+    end
+
     # Removes the object from the specific Category.
     #
     # @param [Task] task the task to remove.
@@ -48,7 +74,7 @@ module R2do
     def remove(task)
       @tasks.delete(task) { raise TaskNotFoundError.new() }
     end
-    
+
     # Returns a string representation of this Category
     #
     # @return [String] the representation of this Category

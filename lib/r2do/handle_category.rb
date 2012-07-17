@@ -15,6 +15,27 @@
 #
 
 module R2do
-  class TaskNotFoundError < Exception; end;
-  class CategoryNotSelectedError < Exception; end;
+  module_function
+
+  def handle_category(args)
+    if args.length < 2
+      raise ArgumentError, "The 'cat' command requires a name argument."
+    end
+
+    extra = ''
+    category_name = args[1]
+    if @state.contains?(category_name)
+      cat = @state.get(category_name)
+    else
+      extra = 'new '
+      cat = Category.new(category_name)
+      @state.add(cat)
+    end
+
+    @state.set_current(cat)
+    @modified = true
+
+    puts "Switched to #{extra}category '#{category_name}'"
+  end
+
 end

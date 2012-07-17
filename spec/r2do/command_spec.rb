@@ -17,40 +17,40 @@
 require 'spec_helper'
 
 module R2do
-  
+
   describe Command do
-    
+
     def callback()
       #empty on purpose
     end
-    
+
     describe "#new" do
       context "valid arguments" do
-        it "returns an instance of Command" do        
+        it "returns an instance of Command" do
           command = Command.new('cat', 'category', nil, 'description for this command', method(:callback))
           command.should be_an_instance_of Command
         end
       end
-      
+
       context "null args" do
         it "raises an error if the swtich is null" do
           expect{ Command.new(nil, 'category', nil, 'description for this command', method(:callback)) }.to raise_error(ArgumentError)
         end
-        
+
         it "raises an error if the name is null" do
           expect{ Command.new('cat', nil, nil, 'description for this command', method(:callback)) }.to raise_error(ArgumentError)
         end
-        
+
         it "raises an error if the description is null" do
           expect{ Command.new('cat', 'category', nil, nil, method(:callback)) }.to raise_error(ArgumentError)
         end
-        
+
         it "raises an error if the callback is null" do
           expect{ Command.new('cat', 'category', nil, 'desctiption', nil) }.to raise_error(ArgumentError)
         end
       end
-    end    
-    
+    end
+
   end
-  
+
 end
