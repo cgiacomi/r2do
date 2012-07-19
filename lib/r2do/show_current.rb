@@ -21,10 +21,7 @@ module R2do
     if not @state.current_category
       puts "No category is currently selected."
     else
-      puts @state.current_category.name
-      @state.current_category.tasks.each do |task|
-        puts "   #{task}"
-      end
+      puts @state.current_category.to_s
     end
   end
 

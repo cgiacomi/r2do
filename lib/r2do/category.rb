@@ -82,9 +82,14 @@ module R2do
       count = 0
       result = StringIO.new
 
+      result << "%s:\n\n" % [@name]
+      result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
+      result << "    " << "-"*50
+      result << "\n"
+
       @tasks.each do | task |
         count += 1
-        result << "#{count}. %s\n" % task
+        result << "    %s\n" % task
       end
 
       return result.string
