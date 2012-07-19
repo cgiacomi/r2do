@@ -19,11 +19,11 @@ require 'spec_helper'
 module R2do
 
   describe Category do
-  
+
     before :each do
-      @category = Category.new("A category")    
+      @category = Category.new("A category")
     end
-  
+
     describe "#new" do
       context "with a name" do
         it "returns a Category object" do
@@ -38,7 +38,7 @@ module R2do
           @category.name.should eql "A category"
         end
       end
-    
+
       context "without a name" do
         it "raises an error" do
           expect{ Category.new }.to raise_error(ArgumentError)
@@ -61,7 +61,7 @@ module R2do
         end
       end
 
-      context "in a category with one task" do 
+      context "in a category with one task" do
         it "has two tasks" do
           @category.add(double("task 1"))
           @category.should have(1).tasks
@@ -71,21 +71,21 @@ module R2do
         end
       end
     end
-    
+
     describe "#remove" do
       context "in empty category" do
         it "raises an error" do
-          expect{ @category.remove(Task.new("Sample Task")) }.to raise_error(TaskNotFoundError)        
+          expect{ @category.remove(Task.new("Sample Task")) }.to raise_error(TaskNotFoundError)
         end
-      end 
-      
+      end
+
       context "on a category that doesn't contain the task" do
         it "raises an error" do
           @category.add(Task.new("My Task"))
-          expect{ @category.remove(Task.new("Task to remove")) }.to raise_error(TaskNotFoundError)        
+          expect{ @category.remove(Task.new("Task to remove")) }.to raise_error(TaskNotFoundError)
         end
-      end  
-      
+      end
+
       context "on the correct category" do
         it "returns the task" do
           task = Task.new("My Task")
@@ -93,35 +93,48 @@ module R2do
           removed_task = @category.remove(task)
           removed_task.should eql task
         end
-        
+
         it "has a task less" do
           task = Task.new("My Task")
           @category.add(task)
           @category.should have(1).tasks
-          
+
           removed_task = @category.remove(task)
-          @category.should have(0).tasks          
+          @category.should have(0).tasks
         end
-      end       
+      end
     end
 
     describe "#to_s" do
       context "with one task" do
         it "returns a description of the task" do
-          result = "1. %-30s [ ] \n" % ["Sample task"]
+          result = StringIO.new
+
+          result << "#{@category.name}:\n\n"
+          result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
+          result << "    " << "-"*50
+          result << "\n"
+          result << "    %-30s [ ] \n" % ["Sample task"]
+
 
           @category.add(Task.new("Sample task"))
-          @category.to_s.should eql result 
+          @category.to_s.should eql result.string
         end
       end
 
       context "with two tasks" do
         it "returns the correct description of the tasks" do
-          result = "1. %-30s [ ] \n2. %-30s [ ] \n" % ["First task", "Second task"]
+          result = StringIO.new
+
+          result << "#{@category.name}:\n\n"
+          result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
+          result << "    " << "-"*50
+          result << "\n"
+          result << "    %-30s [ ] \n    %-30s [ ] \n" % ["First task", "Second task"]
 
           @category.add(Task.new("First task"))
           @category.add(Task.new("Second task"))
-          @category.to_s.should eql result 
+          @category.to_s.should eql result.string
         end
       end
     end
