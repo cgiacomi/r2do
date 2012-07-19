@@ -1,4 +1,4 @@
-# r2do [![Build Status](https://secure.travis-ci.org/cgiacomi/r2do.png?branch=master)][Continuous Integration] [![Dependency Status](https://gemnasium.com/cgiacomi/r2do.png)][Dependencies]
+# r2do [![Build Status](https://secure.travis-ci.org/cgiacomi/r2do.png?branch=master)](http://travis-ci.org/cgiacomi/r2do) [![Dependency Status](https://gemnasium.com/cgiacomi/r2do.png)](http://gemnasium.com/cgiacomi/r2do)
 
 r2do is a simple todo gem to help you remember anything that comes to mind. r2do can be used for normal daily tasks or for your ruby development.
 
