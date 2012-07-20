@@ -20,7 +20,7 @@ module R2do
   def show_categories(args)
     @state.categories.each do |key, value|
       current = (value == @state.current_category && "*") || ' '
-      puts "#{current} #{value.name}"
+      UI.status("#{current} #{value.name}")
     end
   end
 

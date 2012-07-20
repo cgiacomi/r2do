@@ -36,9 +36,9 @@ module R2do
     end
 
     @state.current_category.set_current(task)
-
     @modified = true
-    puts "Switched to #{extra}task '#{task_description}'"
+
+    UI.status("Switched to #{extra}task '#{task_description}'")
   end
 
 end

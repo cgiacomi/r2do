@@ -16,6 +16,7 @@
 
 require 'yaml'
 
+require 'r2do/ui'
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
@@ -55,22 +56,15 @@ module R2do
     # @return [Hash] the collection of commands.
     def create_commands()
       cmd_list = Array.new
-      cmd_list << Command.new('cat', '--category', 'NAME', 'Creates a new category', method(:handle_category))
-      cmd_list << Command.new('dis', '--display', nil, 'Displays all the categories', method(:show_categories))
-      cmd_list << Command.new('cur', '--current', nil, 'Displays the information for the current category', method(:show_current))
-      cmd_list << Command.new('task', '--task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
+      cmd_list << Command.new('cat', 'category', 'NAME', 'Creates a new category', method(:handle_category))
+      cmd_list << Command.new('dis', 'display', nil, 'Displays all the categories', method(:show_categories))
+      cmd_list << Command.new('cur', 'current', nil, 'Displays the information for the current category', method(:show_current))
+      cmd_list << Command.new('task', 'new-task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
       cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
 
-
-      commands = Hash.new
-      cmd_list.each do |cmd|
-        commands[cmd.short] = cmd #short option name
-        commands[cmd.extended] = cmd #extended option name
-      end
-
-      commands
+      cmd_list
     end
 
     # Evaluates the command passed by the user and calls the corresponding application command.
@@ -79,12 +73,13 @@ module R2do
     def run()
       option = @args[0]
 
-
-      if @args.length > 0 and @commands.has_key?(option)
-        cmd = @commands[option]
-        cmd.execute(@args)
-      elsif @args.length > 0
-        invalid_command(option)
+      if @args.length > 0
+        cmd = find_command(option)
+        if not cmd.nil?
+          cmd.execute(@args)
+        else
+          invalid_command(option)
+        end
       else
         show_help(@args)
       end
@@ -101,12 +96,23 @@ module R2do
       end
     end
 
+
+    def find_command(option)
+      @commands.each do |cmd|
+        if cmd.short == option or cmd.extended == option
+          return cmd
+        end
+      end
+
+      return nil
+    end
+
     # Invalid command handler
     #
     # @param [String] option the option the user passed the application
     # @return [void]
     def invalid_command(option)
-      puts "r2do: '#{option}' is not an r2do command. See 'r2do -h'."
+      UI.status("r2do: '#{option}' is not an r2do command. See 'r2do -h'.")
     end
 
     # Show the help command
@@ -114,10 +120,12 @@ module R2do
     # @param [Array] args the list of args the user passed the application
     # @return [void]
     def show_help(args)
-      puts "The most commonly used r2do commands are:\n"
+      UI.status("usage: r2do [--version] [--help] <command> [<args>]")
+      UI.new_line()
+      UI.status("The most commonly used r2do commands are:")
 
-      @commands.each do |key, value|
-        puts "   %s" % value.to_s()
+      @commands.each do |value|
+        UI.status("   %s" % value.to_s())
       end
     end
 
@@ -126,7 +134,7 @@ module R2do
     # @param [Array] args the list of args the user passed the application
     # @return [void]
     def show_version(args)
-      puts R2do::VERSION
+      UI.status(R2do::VERSION)
     end
 
   end

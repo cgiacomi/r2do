@@ -35,7 +35,7 @@ module R2do
     @state.set_current(cat)
     @modified = true
 
-    puts "Switched to #{extra}category '#{category_name}'"
+    UI.status("Switched to #{extra}category '#{category_name}'")
   end
 
 end

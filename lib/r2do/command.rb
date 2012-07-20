@@ -55,7 +55,7 @@ module R2do
     #
     # @return [String] the representation of this Command
     def to_s()
-      return "%-20s" % [@description]
+      return "%-10s %s" % [@extended, @description]
     end
 
   end

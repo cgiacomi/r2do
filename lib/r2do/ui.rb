@@ -15,14 +15,17 @@
 #
 
 module R2do
-  module_function
 
-  def show_current(args)
-    if not @state.current_category
-      UI.status("No category is currently selected.")
-    else
-      UI.status(@state.current_category.to_s)
+  class UI
+
+    def self.status(message)
+      puts message
     end
+
+    def self.new_line()
+      puts
+    end
+
   end
 
 end
