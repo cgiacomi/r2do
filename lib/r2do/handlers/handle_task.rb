@@ -35,7 +35,7 @@ module R2do
     extra = ''
     task_description = args[1]
     task = @state.current_category.find_by_description(task_description)
-    if task == nil
+    if task.nil?
       task = Task.new(task_description)
       @state.current_category.add(task)
       extra = 'new '

@@ -23,7 +23,7 @@ module R2do
     def handle_init(args)
       UI.status("Initialize new session?")
       UI.new_line()
-      value = UI.get_input("Any previous session will be lost. Continue? [Yn]")
+      value = UI.input("Any previous session will be lost. Continue? [Yn]")
       if value == YES
         @state = State.new()
         @modified = true

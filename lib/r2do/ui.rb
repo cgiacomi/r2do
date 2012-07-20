@@ -33,7 +33,7 @@ module R2do
       puts
     end
 
-    def self.get_input(message)
+    def self.input(message)
       print "#{message}  "
       $stdout.flush
       value = $stdin.gets.chomp

@@ -26,6 +26,7 @@ module R2do
       UI.status("No category is currently selected.")
     else
       UI.status(@state.current_category.to_s)
+      UI.new_line()
     end
   end
 
