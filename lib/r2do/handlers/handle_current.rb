@@ -17,18 +17,15 @@
 module R2do
   module_function
 
-  YES = "Y"
-
-  def handle_init(args)
-    UI.status("Initialize new session?")
-    UI.new_line()
-    value = UI.get_input("Any previous session will be lost. Continue? [Yn]")
-    if value == YES
-      @state = State.new()
-      @modified = true
-      UI.status("Initialized a new session of r2do.")
+  # Shows the detailed information for the current category, including the tasks contained
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @return [void]
+  def handle_current(args)
+    if not @state.current_category
+      UI.status("No category is currently selected.")
     else
-      UI.status("Continuing with current session.")
+      UI.status(@state.current_category.to_s)
     end
   end
 

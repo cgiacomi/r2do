@@ -17,15 +17,18 @@
 module R2do
   module_function
 
-  # Shows the detailed information for the current category, including the tasks contained
+  # Displays all the categories available
   #
   # @param [Array] args the arguments passed to the app by the user
   # @return [void]
-  def show_current(args)
-    if not @state.current_category
-      UI.status("No category is currently selected.")
+  def handle_categories(args)
+    if @state.categories.empty?
+        UI.status("No categories to display")
     else
-      UI.status(@state.current_category.to_s)
+      @state.categories.each do |key, value|
+        current = (value == @state.current_category && "*") || ' '
+        UI.status("#{current} #{value.name}")
+      end
     end
   end
 

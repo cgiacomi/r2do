@@ -15,19 +15,21 @@
 #
 
 module R2do
-  module_function
+  module Handlers
+    module_function
 
-  # Displays all the categories available
-  #
-  # @param [Array] args the arguments passed to the app by the user
-  # @return [void]
-  def show_categories(args)
-    if @state.categories.empty?
-        UI.status("No categories to display")
-    else
-      @state.categories.each do |key, value|
-        current = (value == @state.current_category && "*") || ' '
-        UI.status("#{current} #{value.name}")
+    YES = "Y"
+
+    def handle_init(args)
+      UI.status("Initialize new session?")
+      UI.new_line()
+      value = UI.get_input("Any previous session will be lost. Continue? [Yn]")
+      if value == YES
+        @state = State.new()
+        @modified = true
+        UI.status("Initialized a new session of r2do.")
+      else
+        UI.status("Continuing with current session.")
       end
     end
   end

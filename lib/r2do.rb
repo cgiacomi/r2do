@@ -23,11 +23,11 @@ require 'r2do/exceptions'
 require 'r2do/command'
 require 'r2do/state'
 require 'r2do/version'
-require 'r2do/handle_category'
-require 'r2do/handle_task'
-require 'r2do/handle_init'
-require 'r2do/show_categories'
-require 'r2do/show_current'
+require 'r2do/handlers/handle_category'
+require 'r2do/handlers/handle_task'
+require 'r2do/handlers/handle_init'
+require 'r2do/handlers/handle_categories'
+require 'r2do/handlers/handle_current'
 require 'r2do/utility'
 
 
@@ -35,6 +35,7 @@ module R2do
   class App
     include R2do
     include Utility
+    include Handlers
 
     # Creates an instance of the application.
     #
@@ -90,8 +91,8 @@ module R2do
     def create_commands()
       cmd_list = Array.new
       cmd_list << Command.new('cat', 'category', 'NAME', 'Creates a new category', method(:handle_category))
-      cmd_list << Command.new('dis', 'display', nil, 'Displays all the categories', method(:show_categories))
-      cmd_list << Command.new('cur', 'current', nil, 'Displays the information for the current category', method(:show_current))
+      cmd_list << Command.new('dis', 'display', nil, 'Displays all the categories', method(:handle_categories))
+      cmd_list << Command.new('cur', 'current', nil, 'Displays the information for the current category', method(:handle_current))
       cmd_list << Command.new('task', 'new-task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
       cmd_list << Command.new('init', 'initialize', nil, 'Initializes a new clean session.', method(:handle_init))
 
