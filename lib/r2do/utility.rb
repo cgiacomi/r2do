@@ -19,6 +19,34 @@ module R2do
   module Utility
     module_function
 
+
+    def load_state(file_name)
+      file_path = calculate_path(file_name)
+
+      if File.exists?(file_path)
+        file = File.open(file_path, "rb")
+        state = YAML::load(file.read)
+      else
+        state = State.new
+      end
+
+      state
+    end
+
+    def save_state(file_name, state)
+      file_path = calculate_path(file_name)
+
+      file = File.new(file_path, 'w')
+      file.write(YAML.dump(state))
+      file.close()
+    end
+
+
+    def calculate_path(file_name)
+      data_path = File.expand_path("~/")
+      file_path = File.join(data_path, file_name)
+    end
+
     # Show the help command
     #
     # @param [Array] args the list of args the user passed the application

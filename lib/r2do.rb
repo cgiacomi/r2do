@@ -44,14 +44,9 @@ module R2do
       @args = args
       @commands = create_commands()
       @modified = false
+      @file_name = ".r2do.yml"
 
-      @file_name = 'r2do_data.yml'
-      if File.exists?(@file_name)
-        file = File.open(@file_name, "rb")
-        @state = YAML::load(file.read)
-      else
-        @state = State.new
-      end
+      @state = load_state(@file_name)
     end
 
     # Evaluates the command passed by the user and calls the corresponding application command.
@@ -77,9 +72,7 @@ module R2do
     # @return [void]
     def save()
       if @modified
-        file = File.new(@file_name, 'w')
-        file.write(YAML.dump(@state))
-        file.close()
+        save_state(@file_name, @state)
       end
     end
 
@@ -105,17 +98,10 @@ module R2do
 
     # Finds the command based on the option value passed by the user
     #
-    # @param [Array] commands the list of commands
     # @param [String] option the option the user passed the application
     # @return [Command] the command identified by option, else nil
     def find_command(option)
-      @commands.each do |cmd|
-        if cmd.short == option or cmd.extended == option
-          return cmd
-        end
-      end
-
-      return nil
+      @commands.find { |cmd| cmd.short == option or cmd.extended == option }
     end
 
     # Invalid command handler

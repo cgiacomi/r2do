@@ -25,21 +25,51 @@ As r2do evolves this usage section will reflect the new changes.
 At present this is what is available.
 
 
+To initialize or reset the application:
+
+    r2do initialize
+
+or using the short form of the command:
+
+    r2do init
+
+
 To create a new category or to switch to an existing category:
 
-    r2do cat 'My new category'
+    r2do category 'My new category'
 
-or
+or using the short form of the command:
 
     r2do cat MyProject
 
+
 To list existing categories:
 
-    r2do show
+    r2do display
+
+or using the short form of the command:
+
+    r2do dis
+
 
 To see the current category:
 
-    r2do now
+    r2do current
+
+or
+
+    r2do cur
+
+
+To create a new Task or to switch to an existing one:
+
+    r2do task MyTask
+
+or:
+
+    r2do new-task 'My new task'
+
+
 
 ## Contributing
 
