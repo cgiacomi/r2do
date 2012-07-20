@@ -55,9 +55,9 @@ module R2do
     # @return [Hash] the collection of commands.
     def create_commands()
       cmd_list = Array.new
-      cmd_list << Command.new('cat', '--category', 'NAME', 'description', method(:handle_category))
-      cmd_list << Command.new('show', '--categories', nil, 'description', method(:show_categories))
-      cmd_list << Command.new('now', '--current', nil, 'description', method(:show_current))
+      cmd_list << Command.new('cat', '--category', 'NAME', 'Creates a new category', method(:handle_category))
+      cmd_list << Command.new('dis', '--display', nil, 'Displays all the categories', method(:show_categories))
+      cmd_list << Command.new('cur', '--current', nil, 'Displays the information for the current category', method(:show_current))
       cmd_list << Command.new('task', '--task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
@@ -66,7 +66,8 @@ module R2do
 
       commands = Hash.new
       cmd_list.each do |cmd|
-        commands[cmd.switch] = cmd
+        commands[cmd.short] = cmd #short option name
+        commands[cmd.extended] = cmd #extended option name
       end
 
       commands
