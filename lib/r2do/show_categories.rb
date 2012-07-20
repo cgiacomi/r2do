@@ -22,9 +22,13 @@ module R2do
   # @param [Array] args the arguments passed to the app by the user
   # @return [void]
   def show_categories(args)
-    @state.categories.each do |key, value|
-      current = (value == @state.current_category && "*") || ' '
-      UI.status("#{current} #{value.name}")
+    if @state.categories.empty?
+        UI.status("No categories to display")
+    else
+      @state.categories.each do |key, value|
+        current = (value == @state.current_category && "*") || ' '
+        UI.status("#{current} #{value.name}")
+      end
     end
   end
 

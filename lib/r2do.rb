@@ -25,6 +25,7 @@ require 'r2do/state'
 require 'r2do/version'
 require 'r2do/handle_category'
 require 'r2do/handle_task'
+require 'r2do/handle_init'
 require 'r2do/show_categories'
 require 'r2do/show_current'
 require 'r2do/utility'
@@ -92,6 +93,8 @@ module R2do
       cmd_list << Command.new('dis', 'display', nil, 'Displays all the categories', method(:show_categories))
       cmd_list << Command.new('cur', 'current', nil, 'Displays the information for the current category', method(:show_current))
       cmd_list << Command.new('task', 'new-task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
+      cmd_list << Command.new('init', 'initialize', nil, 'Initializes a new clean session.', method(:handle_init))
+
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
       cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))

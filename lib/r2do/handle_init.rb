@@ -15,30 +15,21 @@
 #
 
 module R2do
+  module_function
 
-  class UI
+  YES = "Y"
 
-    # Displays a status message to the user
-    #
-    # @param [String] message the message to display to the user
-    # @return [void]
-    def self.status(message)
-      puts message
+  def handle_init(args)
+    UI.status("Initialize new session?")
+    UI.new_line()
+    value = UI.get_input("Any previous session will be lost. Continue? [Yn]")
+    if value == YES
+      @state = State.new()
+      @modified = true
+      UI.status("Initialized a new session of r2do.")
+    else
+      UI.status("Continuing with current session.")
     end
-
-    # Adds a new empty line on the display
-    #
-    # @return [void]
-    def self.new_line()
-      puts
-    end
-
-    def self.get_input(message)
-      print "#{message}  "
-      $stdout.flush
-      value = $stdin.gets.chomp
-    end
-
   end
 
 end
