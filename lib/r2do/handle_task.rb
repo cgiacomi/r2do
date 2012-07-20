@@ -17,6 +17,12 @@
 module R2do
   module_function
 
+  # Creates a new task or makes a task current in the current category if a task with the
+  # same name already exists
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @raise [ArgumentError] if the command does not contain a name for the task
+  # @return [void]
   def handle_task(args)
     if args.length < 2
       raise ArgumentError, "The 'task' command requires a name argument."

@@ -39,22 +39,21 @@ module R2do
     # @param [String] description the task description.
     # @return [Task] the task identified by description.
     def find_by_description(description)
-      @tasks.each do |task|
-        if task.description == description
-          return task
-        end
-      end
-
-      return nil
+      @tasks.find { |t| t.description == description }
     end
 
     # Adds the object into the specific Category.
     #
     # @param [Task] task the task to add.
     # @raise [ArgumentError] if task is nil.
+    # @raise [Exceptions::TaskAlreadyExistsError] if task with same description is already present.
     # @return [void]
     def add(task)
       raise ArgumentError unless not task.nil?
+
+      duplicate = @tasks.find { |t| t.description == task.description }
+      raise TaskAlreadyExistsError unless duplicate.nil?
+
       @tasks.push(task)
     end
 

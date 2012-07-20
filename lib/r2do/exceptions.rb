@@ -16,5 +16,6 @@
 
 module R2do
   class TaskNotFoundError < Exception; end;
+  class TaskAlreadyExistsError < Exception; end;
   class CategoryNotSelectedError < Exception; end;
 end

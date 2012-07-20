@@ -51,6 +51,16 @@ module R2do
       end
     end
 
+    describe "#to_s" do
+      it "returns the correct representation" do
+        extended = 'category'
+        description = 'description for this command'
+
+        result = "%-10s %s" % [extended, description]
+        command = Command.new('cat', extended, nil, description, method(:callback))
+        command.to_s.should eql result
+      end
+    end
   end
 
 end

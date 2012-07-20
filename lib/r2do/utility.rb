@@ -17,6 +17,7 @@
 module R2do
 
   module Utility
+    module_function
 
     # Show the help command
     #

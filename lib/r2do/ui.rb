@@ -18,10 +18,17 @@ module R2do
 
   class UI
 
+    # Displays a status message to the user
+    #
+    # @param [String] message the message to display to the user
+    # @return [void]
     def self.status(message)
       puts message
     end
 
+    # Adds a new empty line on the display
+    #
+    # @return [void]
     def self.new_line()
       puts
     end

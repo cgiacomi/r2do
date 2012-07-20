@@ -17,6 +17,12 @@
 module R2do
   module_function
 
+  # Creates a new category or makes a category current in the state if a category with the
+  # same name already exists
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @raise [ArgumentError] if the command does not contain a name for the category
+  # @return [void]
   def handle_category(args)
     if args.length < 2
       raise ArgumentError, "The 'cat' command requires a name argument."

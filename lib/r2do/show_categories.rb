@@ -17,6 +17,10 @@
 module R2do
   module_function
 
+  # Displays all the categories available
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @return [void]
   def show_categories(args)
     @state.categories.each do |key, value|
       current = (value == @state.current_category && "*") || ' '

@@ -55,7 +55,7 @@ module R2do
 
       context "in empty category" do
         it "has one task" do
-          task = double("task")
+          task = Task.new("task")
           @category.add(task)
           @category.should have(1).tasks
         end
@@ -63,11 +63,20 @@ module R2do
 
       context "in a category with one task" do
         it "has two tasks" do
-          @category.add(double("task 1"))
+          @category.add(Task.new("task 1"))
           @category.should have(1).tasks
 
-          @category.add(double("task 2"))
+          @category.add(Task.new("task 2"))
           @category.should have(2).tasks
+        end
+      end
+
+      context "add duplicate task" do
+        it "raises an exception" do
+          description = "Sample task"
+
+          @category.add(Task.new(description))
+          expect{ @category.add(Task.new(description)) }.to raise_error(TaskAlreadyExistsError)
         end
       end
     end
@@ -139,6 +148,52 @@ module R2do
       end
     end
 
+    describe "#find_by_description" do
+      context "with no tasks" do
+        it "returns nil" do
+          task = @category.find_by_description('Sample Task')
+          task.should eql nil
+        end
+      end
+
+      context "with tasks" do
+        it "returns nil if you provide the wrong desctiption" do
+          @category.add(Task.new("Sample task"))
+          task = @category.find_by_description("A non existent task")
+          task.should eql nil
+        end
+
+        it "returns the task if it exists" do
+          description = "Sample task"
+          a_task = Task.new(description)
+          @category.add(a_task)
+          return_task = @category.find_by_description(description)
+          return_task.should eql a_task
+        end
+
+        it "returns the task if it exists and there are multiple tasks" do
+          description1 = "Sample task1"
+          description2 = "Sample task2"
+
+          task1 = Task.new(description1)
+          task2 = Task.new(description2)
+
+          @category.add(task1)
+          @category.add(task2)
+
+          return_task = @category.find_by_description(description2)
+          return_task.should eql task2
+        end
+      end
+    end
+
+    describe "#set_current" do
+      it "returns the correct task" do
+        task = Task.new("Sample Task")
+        @category.set_current(task)
+        @category.current_task.should eql task
+      end
+    end
   end
 
 end
