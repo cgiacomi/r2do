@@ -39,7 +39,7 @@ To list existing categories:
 
 To see the current category:
 
-    r2do current
+    r2do now
 
 To create a new Task or to switch to an existing one:
 
@@ -50,7 +50,7 @@ All commands support a short format, for example:
 
     r2do category 'My new category'
 
-    #can be written like
+    #can be written
 
     r2do c 'My new category'
 
