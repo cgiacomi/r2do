@@ -17,7 +17,7 @@
 module R2do
   module_function
 
-  COMPLETED = "-c"
+  COMPLETED = "--done"
 
   # Creates a new task or makes a task current in the current category if a task with the
   # same name already exists
@@ -36,8 +36,29 @@ module R2do
 
     if args.include?(COMPLETED)
       mark_as_complete(args)
+    else
+      parse_task(args)
+    end
+  end
+
+  # Marks a task as completed
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @return [void]
+  def mark_as_complete(args)
+    if not @state.current_category.current_task
+      raise TaskNotSelectedError, "You need to select a task to set it as complete."
     end
 
+    task = @state.current_category.current_task
+    task.completed()
+    @modified = true
+
+    UI.status("Task '%s' has been marked as completed." % task.description)
+  end
+
+
+  def parse_task(args)
     extra = ''
     task_description = args[1]
     task = @state.current_category.find_by_description(task_description)
