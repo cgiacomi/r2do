@@ -82,8 +82,8 @@ module R2do
       result = StringIO.new
 
       result << "%s:\n\n" % [@name]
-      result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
-      result << "    " << "-"*50
+      result << "    %-30s     %s\n" % ["Task", "Completed"]
+      result << "    " << "-"*51
       result << "\n"
 
       @tasks.each do | task |

@@ -55,10 +55,10 @@ module R2do
 
       if done?
         completed = 'x'
-        date = @date_done.strftime('(%a %b %e, %Y)')
+        date = @date_done.strftime('%a %b %e, %Y')
       end
 
-      return "%-30s [%s] %s" % [@description, completed, date]
+      return "[%s] %-30s %s" % [completed, @description, date]
     end
   end
 

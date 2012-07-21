@@ -19,18 +19,18 @@ require 'spec_helper'
 module R2do
 
   describe Task do
-    
+
     before :each do
-      @task = Task.new("Task to complete")    
+      @task = Task.new("Task to complete")
     end
-  
+
     describe "#new" do
       context "with a description" do
         it "returns a Task object" do
           @task.should be_an_instance_of Task
         end
       end
-    
+
       context "without a description" do
         it "raises an error" do
           expect { Task.new }.to raise_error(ArgumentError)
@@ -38,7 +38,7 @@ module R2do
       end
     end
 
-    describe "#description" do    
+    describe "#description" do
       it "returns the correct description" do
         @task.description.should eql "Task to complete"
       end
@@ -47,21 +47,21 @@ module R2do
     describe "#to_s" do
       context "on a task that is not completed" do
         it "returns the correct to string representation" do
-          result = "%-30s [ ] " % ["Task to complete"]
+          result = "[ ] %-30s " % ["Task to complete"]
           @task.to_s.should eql result
         end
       end
 
       context "on a task that is complete" do
         it "returns the correct to string representation" do
-          date = DateTime.now.strftime('(%a %b %e, %Y)')
-          result = "%-30s [x] %s" % ["Task to complete", date]
+          date = DateTime.now.strftime('%a %b %e, %Y')
+          result = "[x] %-30s %s" % ["Task to complete", date]
           @task.completed()
           @task.to_s.should eql result
         end
       end
     end
-  
+
     describe "#done" do
       context "by default" do
         it "returns false" do
@@ -76,7 +76,7 @@ module R2do
         end
       end
     end
-  
+
     describe "#date_done" do
       context "when a task is not completed" do
         it "returns nil" do
@@ -94,9 +94,9 @@ module R2do
         #   @task.completed()
         #   expect { @task.date_done = DateTime.now }.to raise_error(NoMethodError)
         # end
-      end  
+      end
     end
-  
+
   end
 
 end

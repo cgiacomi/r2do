@@ -120,10 +120,10 @@ module R2do
           result = StringIO.new
 
           result << "#{@category.name}:\n\n"
-          result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
-          result << "    " << "-"*50
+          result << "    %-30s     %s\n" % ["Task", "Completed"]
+          result << "    " << "-"*51
           result << "\n"
-          result << "    %-30s [ ] \n" % ["Sample task"]
+          result << "    [ ] %-30s \n" % ["Sample task"]
 
 
           @category.add(Task.new("Sample task"))
@@ -136,10 +136,11 @@ module R2do
           result = StringIO.new
 
           result << "#{@category.name}:\n\n"
-          result << "    %-30s %s %s %s\n" % ["Task", "Done", "Start", "End"]
-          result << "    " << "-"*50
+          result << "    %-30s     %s\n" % ["Task", "Completed"]
+          result << "    " << "-"*51
           result << "\n"
-          result << "    %-30s [ ] \n    %-30s [ ] \n" % ["First task", "Second task"]
+          result << "    [ ] %-30s \n" % "First task"
+          result << "    [ ] %-30s \n" % "Second task"
 
           @category.add(Task.new("First task"))
           @category.add(Task.new("Second task"))
