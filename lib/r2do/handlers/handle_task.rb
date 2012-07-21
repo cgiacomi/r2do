@@ -53,9 +53,4 @@ module R2do
     UI.status("Switched to #{extra}task '#{task_description}'")
   end
 
-
-  def mark_as_complete(args)
-
-  end
-
 end

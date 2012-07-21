@@ -20,6 +20,10 @@ module R2do
 
     YES = "Y"
 
+    # Initializes the applications and resets the datafile
+    #
+    # @param [Array] args the arguments passed to the app by the user
+    # @return [void]
     def handle_init(args)
       UI.status("Initialize new session?")
       UI.new_line()

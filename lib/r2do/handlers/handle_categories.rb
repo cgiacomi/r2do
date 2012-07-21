@@ -32,4 +32,26 @@ module R2do
     end
   end
 
+  # Marks a task as completed
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @return [void]
+  def mark_as_complete(args)
+    UI.status("TODO: add implementation to set a task as completed")
+  end
+
+  # Displays the help for a command
+  #
+  # @param [Array] args the arguments passed to the app by the user
+  # @return [void]
+  def handle_help(args)
+    if args.length < 2
+      show_help(args)
+      return
+    end
+
+    command = args[1]
+    UI.status("TODO: show the help for command '%s'" % command)
+  end
+
 end

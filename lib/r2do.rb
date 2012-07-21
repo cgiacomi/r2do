@@ -83,12 +83,12 @@ module R2do
     # @return [Array] the collection of commands.
     def create_commands()
       cmd_list = Array.new
-      cmd_list << Command.new('cat', 'category', 'NAME', 'Creates a new category', method(:handle_category))
-      cmd_list << Command.new('dis', 'display', nil, 'Displays all the categories', method(:handle_categories))
-      cmd_list << Command.new('cur', 'current', nil, 'Displays the information for the current category', method(:handle_current))
-      cmd_list << Command.new('task', 'new-task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
-      cmd_list << Command.new('init', 'initialize', nil, 'Initializes a new clean session.', method(:handle_init))
-
+      cmd_list << Command.new('i', 'initialize', nil, 'Initializes a new clean session.', method(:handle_init))
+      cmd_list << Command.new('c', 'category', 'NAME', 'Creates a new category', method(:handle_category))
+      cmd_list << Command.new('t', 'task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
+      cmd_list << Command.new('d', 'display', nil, 'Displays all the categories', method(:handle_categories))
+      cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:handle_current))
+      cmd_list << Command.new('h', 'help', nil, 'Displays the help for a command', method(:handle_help))
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
       cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))

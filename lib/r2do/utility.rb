@@ -19,7 +19,10 @@ module R2do
   module Utility
     module_function
 
-
+    # Loads the data file and deserializes the State.
+    #
+    # @param [String] file_name the name of the file to load.
+    # @return [State] the application State.
     def load_state(file_name)
       file_path = calculate_path(file_name)
 
@@ -33,6 +36,11 @@ module R2do
       state
     end
 
+    # Saves the data file and serializes the State.
+    #
+    # @param [String] file_name the name of the file to save.
+    # @param [State] the application state to save.
+    # @return [void]
     def save_state(file_name, state)
       file_path = calculate_path(file_name)
 
@@ -41,7 +49,10 @@ module R2do
       file.close()
     end
 
-
+    # Calculates the path location for the data file.
+    #
+    # @param [String] file_name the name of the file to load.
+    # @return [String] the full destination path including the filename.
     def calculate_path(file_name)
       data_path = File.expand_path("~/")
       file_path = File.join(data_path, file_name)
@@ -52,13 +63,17 @@ module R2do
     # @param [Array] args the list of args the user passed the application
     # @return [void]
     def show_help(args)
-      UI.status("usage: r2do [--version] [--help] <command> [<args>]")
+      UI.status("Usage:")
+      UI.status("    r2do <command> [<args>] [options]")
       UI.new_line()
-      UI.status("The most commonly used r2do commands are:")
+      UI.status("Commands:")
 
       @commands.each do |value|
         UI.status("   %s" % value.to_s())
       end
+
+      UI.new_line()
+      UI.status("See 'r2do help <command>' for more information on a specific command.")
     end
 
     # Show the version number of the application

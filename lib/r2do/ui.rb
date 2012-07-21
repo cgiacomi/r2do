@@ -33,6 +33,9 @@ module R2do
       puts
     end
 
+    # Accepts user input after displaying a message
+    #
+    # @return [String] the value the user inserted
     def self.input(message)
       print "#{message}  "
       $stdout.flush
