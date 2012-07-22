@@ -18,8 +18,6 @@ module R2do
   module Handlers
     module_function
 
-    YES = "Y"
-
     # Initializes the applications and resets the datafile
     #
     # @param [Array] args the arguments passed to the app by the user
@@ -36,6 +34,7 @@ module R2do
         UI.status("Continuing with current session.")
       end
     end
+
   end
 
 end

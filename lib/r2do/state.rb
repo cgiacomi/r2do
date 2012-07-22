@@ -37,6 +37,13 @@ module R2do
       @current_category = category
     end
 
+    # Clears the current category
+    #
+    # return [void]
+    def clear_current_category()
+      @current_category = nil
+    end
+
     # Checks if a category with a specific name already exists.
     #
     # @param [String] category_name the name of the category to check.
@@ -59,6 +66,15 @@ module R2do
     # @return [void]
     def add(category)
       @categories[category.name] = category
+    end
+
+    # Removes the category from the state.
+    #
+    # @param [Category] category the category to remove.
+    # @raise [Exceptions::CategoryNotFoundError] if category is not found.
+    # @return [void]
+    def remove(category)
+      @categories.delete(category.name) { raise CategoryNotFoundError.new() }
     end
 
   end

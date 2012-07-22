@@ -87,7 +87,7 @@ module R2do
       cmd_list << Command.new('c', 'category', 'NAME', 'Creates a new category', method(:handle_category))
       cmd_list << Command.new('t', 'task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
       cmd_list << Command.new('d', 'display', nil, 'Displays all the categories', method(:handle_categories))
-      cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:handle_current))
+      cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:display_current_category))
       cmd_list << Command.new('h', 'help', nil, 'Displays the help for a command', method(:handle_help))
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))

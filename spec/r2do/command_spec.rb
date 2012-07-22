@@ -19,9 +19,12 @@ require 'spec_helper'
 module R2do
 
   describe Command do
+    before(:each) do
+      @callback_invoked = false
+    end
 
-    def callback()
-      #empty on purpose
+    def callback(args)
+      @callback_invoked = true
     end
 
     describe "#new" do
@@ -60,6 +63,21 @@ module R2do
         result = "%2s, %-10s \t# %s" % [short, extended, description]
         command = Command.new(short, extended, nil, description, method(:callback))
         command.to_s.should eql result
+      end
+    end
+
+    describe "#execute" do
+      it "exectutes the callback" do
+        @callback_invoked.should eql false
+
+        short = 'c'
+        extended = 'category'
+        description = 'description for this command'
+        args = Array.new
+        command = Command.new(short, extended, nil, description, method(:callback))
+        command.execute(args)
+
+        @callback_invoked.should eql true
       end
     end
   end
