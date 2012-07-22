@@ -24,4 +24,6 @@ module R2do
   class CategoryNotFoundError < Exception; end;
   class CategoryAlreadyExistsError < Exception; end;
   class CategoryNotSelectedError < Exception; end;
+
+  class InvalidCommandError < Exception; end;
 end

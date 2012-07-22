@@ -21,12 +21,24 @@ module R2do
   	attr_accessor :categories
     # @return [Category] the current category the user is working on.
     attr_accessor :current_category
+    # @return [bool] true if the state has been modified
+    attr_accessor :modified
 
     # Creates a new instance of the State
     #
     def initialize()
+      init()
+    end
+
+    def init()
       @categories = Hash.new
       @current_category = nil
+      @modified = false
+    end
+
+    def reset()
+      init()
+      @modified = true
     end
 
     # Sets a Category as the current one.

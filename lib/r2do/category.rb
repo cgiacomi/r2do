@@ -34,6 +34,10 @@ module R2do
       @current_task = nil
     end
 
+    def rename(name)
+      @name = name
+    end
+
     # Finds a task based on the description.
     #
     # @param [String] description the task description.

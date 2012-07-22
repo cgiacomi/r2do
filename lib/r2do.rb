@@ -23,10 +23,11 @@ require 'r2do/exceptions'
 require 'r2do/command'
 require 'r2do/state'
 require 'r2do/version'
-require 'r2do/handlers/handle_category'
-require 'r2do/handlers/handle_task'
-require 'r2do/handlers/handle_init'
-require 'r2do/handlers/handle_categories'
+require 'r2do/commands/category_command'
+require 'r2do/commands/task_command'
+require 'r2do/commands/init_command'
+require 'r2do/commands/display_categories'
+require 'r2do/commands/help_command'
 require 'r2do/utility'
 
 
@@ -34,18 +35,18 @@ module R2do
   class App
     include R2do
     include Utility
-    include Handlers
+    include Commands
 
     # Creates an instance of the application.
     #
     # @param [Array] args the command line args.
     def initialize(args)
       @args = args
-      @commands = create_commands()
-      @modified = false
-      @file_name = ".r2do.yml"
 
+      @file_name = ".r2do.yml"
       @state = load_state(@file_name)
+
+      @commands = create_commands()
     end
 
     # Evaluates the command passed by the user and calls the corresponding application command.
@@ -74,7 +75,7 @@ module R2do
     #
     # @return [void]
     def save()
-      if @modified
+      if @state.modified
         save_state(@file_name, @state)
       end
     end
@@ -86,12 +87,13 @@ module R2do
     # @return [Array] the collection of commands.
     def create_commands()
       cmd_list = Array.new
-      cmd_list << Command.new('i', 'initialize', nil, 'Initializes a new clean session.', method(:handle_init))
-      cmd_list << Command.new('c', 'category', 'NAME', 'Creates a new category', method(:handle_category))
-      cmd_list << Command.new('t', 'task', 'NAME', 'Adds a new task to the current category.', method(:handle_task))
-      cmd_list << Command.new('d', 'display', nil, 'Displays all the categories', method(:handle_categories))
-      cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:display_current_category))
-      cmd_list << Command.new('h', 'help', nil, 'Displays the help for a command', method(:handle_help))
+      cmd_list << InitCommand.new(@state)
+      cmd_list << CategoryCommand.new(@state)
+      cmd_list << TaskCommand.new(@state)
+      cmd_list << DisplayCategoriesCommand.new(@state)
+      cmd_list << HelpCommand.new(Array.new(cmd_list))
+
+      #cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:display_current_category))
 
       cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
       cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
