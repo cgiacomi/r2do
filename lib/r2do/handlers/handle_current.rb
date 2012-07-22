@@ -15,19 +15,8 @@
 #
 
 module R2do
-  module_function
+  module Handlers
 
-  # Shows the detailed information for the current category, including the tasks contained
-  #
-  # @param [Array] args the arguments passed to the app by the user
-  # @return [void]
-  def handle_current(args)
-    if not @state.current_category
-      UI.status("No category is currently selected.")
-    else
-      UI.status(@state.current_category.to_s)
-      UI.new_line()
-    end
+
   end
-
 end

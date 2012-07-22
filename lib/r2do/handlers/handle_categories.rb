@@ -15,35 +15,38 @@
 #
 
 module R2do
-  module_function
+  module Handlers
+    module_function
 
-  # Displays all the categories available
-  #
-  # @param [Array] args the arguments passed to the app by the user
-  # @return [void]
-  def handle_categories(args)
-    if @state.categories.empty?
-        UI.status("No categories to display")
-    else
-      @state.categories.each do |key, value|
-        current = (value == @state.current_category && "*") || ' '
-        UI.status("#{current} #{value.name}")
+    # Displays all the categories available
+    #
+    # @param [Array] args the arguments passed to the app by the user
+    # @return [void]
+    def handle_categories(args)
+      if @state.categories.empty?
+          UI.status("No categories to display")
+      else
+        @state.categories.each do |key, value|
+          current = (value == @state.current_category && "*") || ' '
+          UI.status("#{current} #{value.name}")
+        end
       end
     end
-  end
 
-  # Displays the help for a command
-  #
-  # @param [Array] args the arguments passed to the app by the user
-  # @return [void]
-  def handle_help(args)
-    if args.length < 2
-      show_help(args)
-      return
+    # Displays the help for a command
+    #
+    # @param [Array] args the arguments passed to the app by the user
+    # @return [void]
+    def handle_help(args)
+      if args.length < 2
+        show_help(args)
+        return
+      end
+
+      command = args[1]
+      UI.status("TODO: show the help for command '%s'" % command)
     end
 
-    command = args[1]
-    UI.status("TODO: show the help for command '%s'" % command)
   end
 
 end

@@ -21,6 +21,8 @@ module R2do
     attr_accessor :description
     # @return [DateTime] the date and time of completion.
     attr_accessor :date_done
+    # @return [DateTime] the date and time of creation
+    attr_accessor :date_created
 
     # Creates a new instance of a Task
     #
@@ -28,6 +30,7 @@ module R2do
     def initialize(description)
       @description = description
       @done = false
+      @date_created = DateTime.now
       @date_done = nil
     end
 
@@ -55,10 +58,33 @@ module R2do
 
       if done?
         completed = 'x'
-        date = @date_done.strftime('%a %b %e, %Y')
+        date = format_date(@date_done)
       end
 
       return "[%s] %-30s %s" % [completed, @description, date]
+    end
+
+    def display()
+      date = format_date(@date_created)
+
+      result = StringIO.new
+
+      result << "Selected task:\n"
+      result << "   %s\n\n" % @description
+      result << "Created:\n"
+      result << "   %s" % date
+
+      if done?
+        result << "\nCompleted:\n"
+        result << "   %s" % format_date(@date_done)
+      end
+
+      return result.string
+    end
+
+
+    def format_date(date)
+      date.strftime('%a %b %e, %Y')
     end
   end
 

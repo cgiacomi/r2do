@@ -65,6 +65,13 @@ module R2do
       @current_task = task
     end
 
+    # Clears the current task
+    #
+    # @return [void]
+    def clear_current_task()
+      @current_task = nil
+    end
+
     # Removes the object from the specific Category.
     #
     # @param [Task] task the task to remove.

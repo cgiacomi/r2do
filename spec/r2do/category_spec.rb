@@ -195,6 +195,17 @@ module R2do
         @category.current_task.should eql task
       end
     end
+
+    describe "#clear_current_task" do
+      it "should return nil" do
+        task = Task.new("Sample Task")
+        @category.set_current(task)
+        @category.current_task.should eql task
+
+        @category.clear_current_task()
+        @category.current_task.should eql nil
+      end
+    end
   end
 
 end

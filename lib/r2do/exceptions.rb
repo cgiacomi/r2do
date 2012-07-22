@@ -15,8 +15,13 @@
 #
 
 module R2do
+  class InvalidOptionError < Exception; end;
+
   class TaskNotFoundError < Exception; end;
   class TaskAlreadyExistsError < Exception; end;
   class TaskNotSelectedError < Exception; end;
+
+  class CategoryNotFoundError < Exception; end;
+  class CategoryAlreadyExistsError < Exception; end;
   class CategoryNotSelectedError < Exception; end;
 end

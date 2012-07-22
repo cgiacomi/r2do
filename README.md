@@ -29,22 +29,50 @@ To initialize or reset the application:
 
     r2do initialize
 
+
+### Category
+
 To create a new category or to switch to an existing category:
 
     r2do category 'My new category'
 
-To list existing categories:
+To display the information of the current category:
 
-    r2do display
+    r2do category --display
 
-To see the current category:
+    # or the shortcut
 
     r2do now
 
-To create a new Task or to switch to an existing one:
+To permanently delete a Category and its contents:
+
+    r2do category --delete
+
+To list all existing categories:
+
+    r2do display
+
+
+### Task
+
+To create a new Task or to select an existing one:
 
     r2do task MyTask
 
+To view the information regarding a Task:
+
+    r2do task --display
+
+To complete a Task:
+
+    r2do task --done
+
+To permanently delete a Task:
+
+    r2do task --delete
+
+
+### Short command format
 
 All commands support a short format, for example:
 
@@ -57,6 +85,18 @@ All commands support a short format, for example:
 To see all the available commands:
 
     r2do --help
+
+
+## What is missing?
+
+There are many features presently missing from r2do, which will be implemented in future versions but there is one thing which must be noted here.
+
+1) The ability to edit a Category or a Task is lacking at present. It is the top priority, but please note that it is missing.
+
+If you need to edit a Task you can delete the old one and re-create it.
+The same goes for a Category, although this is more annoying as you will loose your Tasks when you delete a Category.
+
+2) The ability to move a Task from one Category to another is also missing.
 
 
 ## Contributing

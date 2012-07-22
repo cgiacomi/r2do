@@ -26,9 +26,58 @@ module R2do
     # @return [void]
     def handle_category(args)
       if args.length < 2
-        raise ArgumentError, "The 'cat' command requires a name argument."
+        raise ArgumentError, "The 'category' command requires additional arguments."
       end
 
+      option = args[1]
+
+      if option.eql?(DISPLAY)
+        display_current_category(args)
+      elsif option.eql?(DELETE)
+        require_selected_category()
+        delete_category(args)
+      elsif option.start_with?("--")
+        raise InvalidOptionError
+      else
+        parse_category(args)
+      end
+    end
+
+    # Shows the detailed information for the current category, including the tasks contained
+    #
+    # @param [Array] args the arguments passed to the app by the user
+    # @return [void]
+    def display_current_category(args)
+      if not @state.current_category
+        UI.status("No category is currently selected.")
+      else
+        UI.status(@state.current_category.to_s)
+        UI.new_line()
+      end
+    end
+
+    # Deletes the currently selected category
+    #
+    # @param [Array] args the argumets passed to the app by the user
+    # @return [void]
+    def delete_category(args)
+      UI.status("Are you sure you want to delete the category:")
+      UI.status("   #{@state.current_category.name}")
+      UI.new_line()
+      UI.status("All tasks contained in this category will be lost.")
+      value = UI.input("This action cannot be undone. Continue? [Yn]")
+      if value == YES
+        cat = @state.current_category
+        @state.remove(cat)
+        @state.clear_current_category()
+        @modified = true
+
+        UI.status("Category '#{cat.name}' has been deleted.")
+      end
+    end
+
+
+    def parse_category(args)
       extra = ''
       category_name = args[1]
       if @state.contains?(category_name)
@@ -44,5 +93,14 @@ module R2do
 
       UI.status("Switched to #{extra}category '#{category_name}'")
     end
+
+
+    def require_selected_category()
+      if not @state.current_category
+        raise CategoryNotSelectedError, "This action requires a selected category."
+      end
+    end
+
   end
+
 end
