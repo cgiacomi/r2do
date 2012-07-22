@@ -24,6 +24,7 @@ module R2do
     COMPLETED = "--done"
     DISPLAY   = "--display"
     DELETE    = "--delete"
+    EDIT      = "--edit"
 
     # Creates a new task or makes a task current in the current category if a task with the
     # same name already exists
@@ -45,6 +46,9 @@ module R2do
       if option.eql?(DISPLAY)
         require_selected_task()
         show_current_task(args)
+      elsif option.eql?(EDIT)
+        require_selected_task()
+        edit_current_task(args)
       elsif option.eql?(COMPLETED)
         require_selected_task()
         mark_as_complete(args)
@@ -52,13 +56,35 @@ module R2do
         require_selected_task()
         delete_task(args)
       elsif option.start_with?("--")
-        raise InvalidOptionError
+        raise InvalidOptionError, "Invalid argument for the command. See 'r2do -h'."
       else
         parse_task(args)
       end
     end
 
+    # Edit the current task.
+    #
+    # @param [Array] args the arguments passed to the app by the user.
+    # @return [void]
+    def edit_current_task(args)
+      UI.status("Are you sure you want to edit the task:")
+      UI.status("   #{@state.current_category.current_task.description}")
+      UI.new_line()
+      value = UI.input("Continue? [Yn]")
+      if value == YES
+        desc = UI.input("Enter new description:")
+        task = @state.current_category.current_task
+        task.rename(desc)
+        @modified = true
 
+        UI.status("The task as been modified.")
+      end
+    end
+
+    # Delete the currently selected task.
+    #
+    # @param [Array] args the arguments passed to the app by the user.
+    # @return [void]
     def delete_task(args)
       UI.status("Are you sure you want to delete the task:")
       UI.status("   #{@state.current_category.current_task.description}")
@@ -74,15 +100,18 @@ module R2do
       end
     end
 
-
+    # Displays the information of the currently selected task.
+    #
+    # @param [Array] args the arguments passed to the app by the user.
+    # @return [void]
     def show_current_task(args)
       task = @state.current_category.current_task
       UI.status(task.display())
     end
 
-    # Marks a task as completed
+    # Marks a task as completed.
     #
-    # @param [Array] args the arguments passed to the app by the user
+    # @param [Array] args the arguments passed to the app by the user.
     # @return [void]
     def mark_as_complete(args)
       task = @state.current_category.current_task
@@ -92,7 +121,10 @@ module R2do
       UI.status("Task '%s' has been marked as completed." % task.description)
     end
 
-
+    # Creates a new task or select an already existing one.
+    #
+    # @param [Array] args the arguments passed to the app by the user.
+    # @return [void]
     def parse_task(args)
       extra = ''
       task_description = args[1]
@@ -111,6 +143,9 @@ module R2do
       UI.status("Selected task '#{task_description}'")
     end
 
+    # Checks that a task is currently selected.
+    #
+    # @return [void]
     def require_selected_task()
       if not @state.current_category.current_task
         raise TaskNotSelectedError, "This action requires a selected task."

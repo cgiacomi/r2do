@@ -26,6 +26,14 @@ module R2do
       puts message
     end
 
+    # Displays a status message to the user
+    #
+    # @param [String] message the message to display to the user
+    # @return [void]
+    def self.rescue(exception)
+      puts "abort: #{exception.message}"
+    end
+
     # Adds a new empty line on the display
     #
     # @return [void]

@@ -76,7 +76,10 @@ module R2do
       end
     end
 
-
+    # Creates a new Category or selects an already existing one.
+    #
+    # @param [Array] args the argumets passed to the app by the user.
+    # @return [void]
     def parse_category(args)
       extra = ''
       category_name = args[1]
@@ -94,7 +97,9 @@ module R2do
       UI.status("Switched to #{extra}category '#{category_name}'")
     end
 
-
+    # Ensures that a category is selected.
+    #
+    # @return [void]
     def require_selected_category()
       if not @state.current_category
         raise CategoryNotSelectedError, "This action requires a selected category."

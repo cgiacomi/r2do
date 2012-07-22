@@ -27,7 +27,6 @@ require 'r2do/handlers/handle_category'
 require 'r2do/handlers/handle_task'
 require 'r2do/handlers/handle_init'
 require 'r2do/handlers/handle_categories'
-require 'r2do/handlers/handle_current'
 require 'r2do/utility'
 
 
@@ -58,7 +57,11 @@ module R2do
       if @args.length > 0
         cmd = find_command(option)
         if not cmd.nil?
-          cmd.execute(@args)
+          begin
+            cmd.execute(@args)
+          rescue Exception => e
+            UI.rescue(e)
+          end
         else
           invalid_command(option)
         end

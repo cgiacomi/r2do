@@ -63,6 +63,10 @@ To view the information regarding a Task:
 
     r2do task --display
 
+To edit a Task:
+
+    r2do task --edit
+
 To complete a Task:
 
     r2do task --done
@@ -91,10 +95,7 @@ To see all the available commands:
 
 There are many features presently missing from r2do, which will be implemented in future versions but there is one thing which must be noted here.
 
-1) The ability to edit a Category or a Task is lacking at present. It is the top priority, but please note that it is missing.
-
-If you need to edit a Task you can delete the old one and re-create it.
-The same goes for a Category, although this is more annoying as you will loose your Tasks when you delete a Category.
+1) The ability to edit a Category is lacking at present.
 
 2) The ability to move a Task from one Category to another is also missing.
 

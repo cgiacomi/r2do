@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["christiangiacomi@gmail.com"]
   gem.description   = %q{A simple todo gem}
   gem.summary       = %q{A simple todo gem}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/cgiacomi/r2do"
 
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"

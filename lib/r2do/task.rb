@@ -34,6 +34,14 @@ module R2do
       @date_done = nil
     end
 
+    # Renames this Task
+    #
+    # @param [String] description the new value for the task
+    # @return [void]
+    def rename(description)
+      @description = description
+    end
+
     # Gets the completed status of the specific task.
     #
     # @return [bool] true if the task is completed.
@@ -64,6 +72,9 @@ module R2do
       return "[%s] %-30s %s" % [completed, @description, date]
     end
 
+    # Returns information regarding the state of this task.
+    #
+    # @return [String] the metadata for this task.
     def display()
       date = format_date(@date_created)
 
@@ -82,7 +93,10 @@ module R2do
       return result.string
     end
 
-
+    # Formats the date
+    #
+    # @param [DateTime] date the date to parse
+    # @return [String] the formatted date
     def format_date(date)
       date.strftime('%a %b %e, %Y')
     end
