@@ -43,7 +43,7 @@ module R2do
           raise ArgumentError, "The 'task' command requires additional arguments."
         end
 
-        if not @state.current_category
+        if @state.current_category.nil?
           raise CategoryNotSelectedError, "You need to select a category to create a new task."
         end
 
@@ -153,7 +153,7 @@ module R2do
       #
       # @return [void]
       def require_selected_task()
-        if not @state.current_category.current_task
+        if @state.current_category.current_task.nil?
           raise TaskNotSelectedError, "This action requires a selected task."
         end
       end

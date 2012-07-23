@@ -30,7 +30,9 @@ module R2do
     #
     # @param [String] desctiption the description for this task
     def initialize(description)
-      raise ArgumentError, "A task description has to be less than 30 characters." unless description.length <= MAX_LENGTH
+      if description.length > MAX_LENGTH
+        raise ArgumentError, "A task description has to be less than 30 characters."
+      end
 
       @description = description
       @done = false

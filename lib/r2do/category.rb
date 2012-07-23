@@ -53,10 +53,12 @@ module R2do
     # @raise [Exceptions::TaskAlreadyExistsError] if task with same description is already present.
     # @return [void]
     def add(task)
-      raise ArgumentError unless not task.nil?
+      if task.nil? raise ArgumentError; end
 
       duplicate = @tasks.find { |t| t.description == task.description }
-      raise TaskAlreadyExistsError unless duplicate.nil?
+      if duplicate.nil?
+        raise TaskAlreadyExistsError
+      end
 
       @tasks.push(task)
     end

@@ -80,6 +80,12 @@ module R2do
       @categories[category.name] = category
     end
 
+
+    def refresh(original_name, category)
+      @categories.delete(original_name) { raise CategoryNotFoundError.new() }
+      @categories[category.name] = category
+    end
+
     # Removes the category from the state.
     #
     # @param [Category] category the category to remove.

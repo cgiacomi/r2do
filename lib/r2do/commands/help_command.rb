@@ -32,7 +32,9 @@ module R2do
         argument = args[1]
 
         cmd = @cmd_list.find { |c| c.short == argument or c.extended == argument }
-        raise InvalidCommandError, "Invalid command. See 'r2do -h'" unless not cmd.nil?
+        if cmd.nil?
+          raise InvalidCommandError, "Invalid command. See 'r2do -h'"
+        end
 
         UI.status(cmd.help)
       end

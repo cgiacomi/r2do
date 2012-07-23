@@ -34,10 +34,9 @@ module R2do
     # @param [String] description the command's description
     # @param [String] help the help for this command
     def initialize(short, extended, description, help)
-      raise ArgumentError unless not short.nil? and
-                                  not extended.nil? and
-                                  not description.nil?
-
+      if short.nil? or extended.nil? or description.nil?
+        raise ArgumentError
+      end
 
       @short = short
       @extended = extended

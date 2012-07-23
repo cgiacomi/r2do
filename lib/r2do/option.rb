@@ -29,7 +29,9 @@ module R2do
       def initialize(short, extended, description, callback)
         super(short, extended, description, nil)
 
-        raise ArgumentError unless not callback.nil?
+        if callback.nil?
+          raise ArgumentError
+        end
 
         @callback = callback
       end

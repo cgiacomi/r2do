@@ -68,9 +68,14 @@ module R2do
         UI.new_line()
         value = UI.input("Continue? [Yn]")
         if value == YES
-          name = UI.input("Enter new name:")
           cat = @state.current_category
+
+          original_name = cat.name
+          name = UI.input("Enter new name:")
+
           cat.rename(name)
+
+          @state.refresh(original_name, cat)
           @state.modified = true
 
           UI.status("The category as been modified.")
@@ -136,7 +141,7 @@ module R2do
       #
       # @return [void]
       def require_selected_category()
-        if not @state.current_category
+        if @state.current_category.nil?
           raise CategoryNotSelectedError, "This action requires a selected category."
         end
       end
