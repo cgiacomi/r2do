@@ -27,7 +27,7 @@ module R2do
       # @param [String] description the command's description
       # @param [callback] callback the callback method for this command
       def initialize(short, extended, description, callback)
-        super(short, extended, description, nil)
+        super(short, extended, description)
 
         if callback.nil?
           raise ArgumentError

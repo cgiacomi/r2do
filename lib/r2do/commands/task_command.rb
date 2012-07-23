@@ -27,7 +27,7 @@ module R2do
       EDIT      = "--edit"
 
       def initialize(state)
-        super('t', 'task', 'Adds a new task to the current category.', "TODO: help")
+        super('t', 'task', 'Adds a new task to the current category.')
 
         @state = state
       end
@@ -156,6 +156,13 @@ module R2do
         if @state.current_category.current_task.nil?
           raise TaskNotSelectedError, "This action requires a selected task."
         end
+      end
+
+
+      def help()
+        help = <<-EOF
+          This is the help for the task command.
+        EOF
       end
 
     end

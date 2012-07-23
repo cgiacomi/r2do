@@ -23,8 +23,6 @@ module R2do
     attr_reader :extended
     # @return [String] the description for the command.
     attr_reader :description
-    # @return [String] the help for this command
-    attr_accessor :help
 
     # Creates an instance of a Command
     #
@@ -32,8 +30,7 @@ module R2do
     # @param [String] extended the full option name for this command
     # @param [String] argument the optional argument for commands that have arguments
     # @param [String] description the command's description
-    # @param [String] help the help for this command
-    def initialize(short, extended, description, help)
+    def initialize(short, extended, description)
       if short.nil? or extended.nil? or description.nil?
         raise ArgumentError
       end
@@ -41,7 +38,6 @@ module R2do
       @short = short
       @extended = extended
       @description = description
-      @help = help
     end
 
     # Executes the callback of this command
@@ -50,6 +46,10 @@ module R2do
     # @return [void]
     def execute(args)
       raise ScriptError, "Cannot call execute on an abstract command"
+    end
+
+    def help()
+      return "No help available for this command."
     end
 
     # Returns a string representation of this Command

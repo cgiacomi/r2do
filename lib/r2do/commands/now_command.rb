@@ -19,7 +19,7 @@ module R2do
     class NowCommand < Command
 
       def initialize(state)
-        super('n', 'now', 'Displays the information for the current category.', "TODO: help")
+        super('n', 'now', 'Displays the information for the current category.')
 
         @state = state
       end
@@ -46,6 +46,12 @@ module R2do
           UI.status(@state.current_category.to_s)
           UI.new_line()
         end
+      end
+
+      def help()
+        help = <<-EOF
+          This is the help for the now command.
+        EOF
       end
 
     end

@@ -19,7 +19,7 @@ module R2do
     class DisplayCategoriesCommand < Command
 
       def initialize(state)
-        super('d', 'display', 'Displays all the categories.', "TODO: help")
+        super('d', 'display', 'Displays all the categories.')
 
         @state = state
       end
@@ -37,6 +37,12 @@ module R2do
             UI.status("#{current} #{value.name}")
           end
         end
+      end
+
+      def help()
+        help = <<-EOF
+          This is the help for the display command.
+        EOF
       end
 
     end

@@ -19,7 +19,7 @@ module R2do
     class HelpCommand < Command
 
       def initialize(cmd_list)
-        super('h', 'help', 'Shows the help for a given command', "TODO: help")
+        super('h', 'help', 'Shows the help for a given command')
 
         @cmd_list = cmd_list
       end
@@ -36,7 +36,13 @@ module R2do
           raise InvalidCommandError, "Invalid command. See 'r2do -h'"
         end
 
-        UI.status(cmd.help)
+        UI.status(cmd.help())
+      end
+
+      def help()
+        help = <<-EOF
+          This is the help for the help command.
+        EOF
       end
 
     end

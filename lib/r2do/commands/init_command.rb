@@ -21,7 +21,7 @@ module R2do
       YES = "Y"
 
       def initialize(state)
-        super('i', 'initialize', 'Initializes a new clean session.', "TODO: help")
+        super('i', 'initialize', 'Initializes a new clean session.')
 
         @state = state
       end
@@ -41,6 +41,12 @@ module R2do
         else
           UI.status("Continuing with current session.")
         end
+      end
+
+      def help()
+        help = <<-EOF
+          This is the help for the initialize command.
+        EOF
       end
 
     end

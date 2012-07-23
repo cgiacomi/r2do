@@ -25,7 +25,7 @@ module R2do
       EDIT      = "--edit"
 
       def initialize(state)
-        super('c', 'category', 'Creates a new category.', "TODO: help")
+        super('c', 'category', 'Creates a new category.')
 
         @state = state
       end
@@ -144,6 +144,12 @@ module R2do
         if @state.current_category.nil?
           raise CategoryNotSelectedError, "This action requires a selected category."
         end
+      end
+
+      def help()
+        help = <<-EOF
+          This is the help for the category command.
+        EOF
       end
 
     end
