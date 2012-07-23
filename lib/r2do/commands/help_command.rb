@@ -16,20 +16,10 @@
 
 module R2do
   module Commands
-    class HelpCommand
-
-      attr_accessor :short
-      attr_accessor :extended
-      attr_accessor :description
-      attr_accessor :help
-
-      YES = "Y"
+    class HelpCommand < Command
 
       def initialize(cmd_list)
-        @short = 'h'
-        @extended = 'help'
-        @description = 'Shows the help for a given command'
-        @help = "TODO: help"
+        super('h', 'help', 'Shows the help for a given command', "TODO: help")
 
         @cmd_list = cmd_list
       end
@@ -45,13 +35,6 @@ module R2do
         raise InvalidCommandError, "Invalid command. See 'r2do -h'" unless not cmd.nil?
 
         UI.status(cmd.help)
-      end
-
-      # Returns a string representation of this Command
-      #
-      # @return [String] the representation of this Command
-      def to_s()
-        return "%2s, %-10s \t# %s" % [@short, @extended, @description]
       end
 
     end

@@ -16,13 +16,8 @@
 
 module R2do
 
-  class Command
-    # @return [String] the value for the command switch.
-    attr_reader :short
-    # @return [String] the name of this command.
-    attr_reader :extended
-    # @return [String] the description for the command.
-    attr_reader :description
+  class Option < Command
+
 
     # Creates an instance of a Command
     #
@@ -31,15 +26,11 @@ module R2do
     # @param [String] argument the optional argument for commands that have arguments
     # @param [String] description the command's description
     # @param [callback] callback the callback method for this command
-    def initialize(short, extended, argument, description, callback)
-      raise ArgumentError unless not short.nil? and
-                                  not extended.nil? and
-                                  not description.nil? and
-                                  not callback.nil?
+    def initialize(short, extended, description, callback)
+      super(short, extended, argument, description)
 
-      @short = short
-      @extended = extended
-      @description = description
+      raise ArgumentError unless not callback.nil?
+
       @callback = callback
     end
 
@@ -49,13 +40,6 @@ module R2do
     # @return [void]
     def execute(args)
       @callback.call(args)
-    end
-
-    # Returns a string representation of this Command
-    #
-    # @return [String] the representation of this Command
-    def to_s()
-      return "%2s, %-10s \t# %s" % [@short, @extended, @description]
     end
 
   end

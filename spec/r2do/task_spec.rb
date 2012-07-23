@@ -36,6 +36,20 @@ module R2do
           expect { Task.new }.to raise_error(ArgumentError)
         end
       end
+
+      context "with a length of more than 30 characters" do
+        it "raises and exception" do
+          name = "a"*31
+          expect { Task.new(name) }.to raise_error(ArgumentError)
+        end
+      end
+
+      context "with a length of 30 chars" do
+        it "returns a valid instance" do
+          name = "a"*30
+          Task.new(name)
+        end
+      end
     end
 
     describe "#description" do

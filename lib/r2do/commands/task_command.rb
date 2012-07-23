@@ -16,12 +16,7 @@
 
 module R2do
   module Commands
-    class TaskCommand
-
-      attr_accessor :short
-      attr_accessor :extended
-      attr_accessor :description
-      attr_accessor :help
+    class TaskCommand < Command
 
       YES = "Y"
 
@@ -32,10 +27,7 @@ module R2do
       EDIT      = "--edit"
 
       def initialize(state)
-        @short = 't'
-        @extended = 'task'
-        @description = 'Adds a new task to the current category.'
-        @help = "TODO: help"
+        super('t', 'task', 'Adds a new task to the current category.', "TODO: help")
 
         @state = state
       end
@@ -166,12 +158,6 @@ module R2do
         end
       end
 
-      # Returns a string representation of this Command
-      #
-      # @return [String] the representation of this Command
-      def to_s()
-        return "%2s, %-10s \t# %s" % [@short, @extended, @description]
-      end
     end
 
   end

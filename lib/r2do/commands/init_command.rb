@@ -16,20 +16,12 @@
 
 module R2do
   module Commands
-    class InitCommand
-
-      attr_accessor :short
-      attr_accessor :extended
-      attr_accessor :description
-      attr_accessor :help
+    class InitCommand < Command
 
       YES = "Y"
 
       def initialize(state)
-        @short = 'i'
-        @extended = 'initialize'
-        @description = 'Initializes a new clean session.'
-        @help = "TODO: help"
+        super('i', 'initialize', 'Initializes a new clean session.', "TODO: help")
 
         @state = state
       end
@@ -49,13 +41,6 @@ module R2do
         else
           UI.status("Continuing with current session.")
         end
-      end
-
-      # Returns a string representation of this Command
-      #
-      # @return [String] the representation of this Command
-      def to_s()
-        return "%2s, %-10s \t# %s" % [@short, @extended, @description]
       end
 
     end

@@ -24,10 +24,14 @@ module R2do
     # @return [DateTime] the date and time of creation
     attr_accessor :date_created
 
+    MAX_LENGTH = 30
+
     # Creates a new instance of a Task
     #
     # @param [String] desctiption the description for this task
     def initialize(description)
+      raise ArgumentError, "A task description has to be less than 30 characters." unless description.length <= MAX_LENGTH
+
       @description = description
       @done = false
       @date_created = DateTime.now

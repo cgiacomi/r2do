@@ -16,12 +16,7 @@
 
 module R2do
   module Commands
-    class CategoryCommand
-
-      attr_accessor :short
-      attr_accessor :extended
-      attr_accessor :description
-      attr_accessor :help
+    class CategoryCommand < Command
 
       YES = "Y"
 
@@ -30,10 +25,7 @@ module R2do
       EDIT      = "--edit"
 
       def initialize(state)
-        @short = 'c'
-        @extended = 'category'
-        @description = 'Creates a new category.'
-        @help = "TODO: help"
+        super('c', 'category', 'Creates a new category.', "TODO: help")
 
         @state = state
       end
@@ -90,6 +82,7 @@ module R2do
       # @param [Array] args the arguments passed to the app by the user
       # @return [void]
       def display_current_category(args)
+        #TODO: need to refatctor the code to remove the duplication (NowCommand)
         if not @state.current_category
           UI.status("No category is currently selected.")
         else
@@ -146,13 +139,6 @@ module R2do
         if not @state.current_category
           raise CategoryNotSelectedError, "This action requires a selected category."
         end
-      end
-
-      # Returns a string representation of this Command
-      #
-      # @return [String] the representation of this Command
-      def to_s()
-        return "%2s, %-10s \t# %s" % [@short, @extended, @description]
       end
 
     end

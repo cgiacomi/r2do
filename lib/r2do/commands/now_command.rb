@@ -16,26 +16,35 @@
 
 module R2do
   module Commands
-    class DisplayCategoriesCommand < Command
+    class NowCommand < Command
 
       def initialize(state)
-        super('d', 'display', 'Displays all the categories.', "TODO: help")
+        super('n', 'now', 'Displays the information for the current category.', "TODO: help")
 
         @state = state
       end
 
-      # Displays all the categories available
+      # Creates a new category or makes a category current in the state if a category with the
+      # same name already exists
+      #
+      # @param [Array] args the arguments passed to the app by the user
+      # @raise [ArgumentError] if the command does not contain a name for the category
+      # @return [void]
+      def execute(args)
+        display_current_category(args)
+      end
+
+      # Shows the detailed information for the current category, including the tasks contained
       #
       # @param [Array] args the arguments passed to the app by the user
       # @return [void]
-      def execute(args)
-        if @state.categories.empty?
-            UI.status("No categories to display")
+      def display_current_category(args)
+        #TODO: need to refatctor the code to remove the duplication
+        if not @state.current_category
+          UI.status("No category is currently selected.")
         else
-          @state.categories.each do |key, value|
-            current = (value == @state.current_category && "*") || ' '
-            UI.status("#{current} #{value.name}")
-          end
+          UI.status(@state.current_category.to_s)
+          UI.new_line()
         end
       end
 

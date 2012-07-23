@@ -16,13 +16,15 @@
 
 require 'yaml'
 
+require 'r2do/commands/command'
 require 'r2do/ui'
 require 'r2do/category'
 require 'r2do/task'
 require 'r2do/exceptions'
-require 'r2do/command'
+require 'r2do/option'
 require 'r2do/state'
 require 'r2do/version'
+require 'r2do/commands/now_command'
 require 'r2do/commands/category_command'
 require 'r2do/commands/task_command'
 require 'r2do/commands/init_command'
@@ -91,12 +93,12 @@ module R2do
       cmd_list << CategoryCommand.new(@state)
       cmd_list << TaskCommand.new(@state)
       cmd_list << DisplayCategoriesCommand.new(@state)
+      cmd_list << NowCommand.new(@state)
+
       cmd_list << HelpCommand.new(Array.new(cmd_list))
 
-      #cmd_list << Command.new('n', 'now', nil, 'Displays the information for the current category', method(:display_current_category))
-
-      cmd_list << Command.new('-v', '--version', nil, 'Prints the application version.', method(:show_version))
-      cmd_list << Command.new('-h', '--help', nil, 'You are looking at it.', method(:show_help))
+      cmd_list << Option.new('-v', '--version', 'Prints the application version.', method(:show_version))
+      cmd_list << Option.new('-h', '--help', 'You are looking at it.', method(:show_help))
 
       cmd_list
     end

@@ -32,11 +32,11 @@ module R2do
     # @param [String] extended the full option name for this command
     # @param [String] argument the optional argument for commands that have arguments
     # @param [String] description the command's description
-    def initialize(short, extended, argument, description, help)
+    # @param [String] help the help for this command
+    def initialize(short, extended, description, help)
       raise ArgumentError unless not short.nil? and
                                   not extended.nil? and
-                                  not description.nil? and
-                                  not help.nil?
+                                  not description.nil?
 
 
       @short = short
