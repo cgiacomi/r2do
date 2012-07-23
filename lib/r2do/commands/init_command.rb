@@ -21,7 +21,7 @@ module R2do
       YES = "Y"
 
       def initialize(state)
-        super('i', 'initialize', 'Initializes a new clean session.')
+        super('i', 'init', 'Initializes a new clean session.')
 
         @state = state
       end
@@ -45,7 +45,18 @@ module R2do
 
       def help()
         help = <<-EOF
-          This is the help for the initialize command.
+NAME
+       r2do #{@extended}
+
+SYNOPSIS
+       'r2do #{@extended}' or 'r2do #{@short}' are equivalent
+
+DESCRIPTION
+
+      The #{@extended} command initializes a new session of the application. Any previously saved data is permanently lost.
+
+      usage: r2do #{@extended}
+
         EOF
       end
 

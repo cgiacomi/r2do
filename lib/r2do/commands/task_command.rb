@@ -161,7 +161,21 @@ module R2do
 
       def help()
         help = <<-EOF
-          This is the help for the task command.
+NAME
+       r2do #{@extended}
+
+SYNOPSIS
+       'r2do #{@extended}' or 'r2do #{@short}' are equivalent
+
+DESCRIPTION
+      The #{@extended} lets you interact with a task, create, edit, or delete. Defaults to the active task.
+
+      usage: r2do #{@extended} [NAME] [--edit] [--display] [--delete]
+
+      --edit                Edit the currently selected task
+      --display             Displays the details for the selected task
+      --delete              Delete the selected task
+
         EOF
       end
 

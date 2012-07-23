@@ -148,7 +148,21 @@ module R2do
 
       def help()
         help = <<-EOF
-          This is the help for the category command.
+NAME
+       r2do #{@extended}
+
+SYNOPSIS
+       'r2do #{@extended}' or 'r2do #{@short}' are equivalent
+
+DESCRIPTION
+      The #{@extended} lets you interact with a category, create, edit, or delete. Defaults to the active category.
+
+      usage: r2do #{@extended} [NAME] [--edit] [--display] [--delete]
+
+      --edit                Edit the currently selected category
+      --display             Displays the details for the selected category
+      --delete              Delete the selected category
+
         EOF
       end
 

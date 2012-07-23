@@ -60,11 +60,11 @@ module R2do
       if @args.length > 0
         cmd = find_command(option)
         if not cmd.nil?
-          #begin
+          begin
             cmd.execute(@args)
-          #rescue Exception => e
-          #  UI.rescue(e)
-          #end
+          rescue Exception => e
+            UI.rescue(e)
+          end
         else
           invalid_command(option)
         end

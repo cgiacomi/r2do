@@ -50,7 +50,17 @@ module R2do
 
       def help()
         help = <<-EOF
-          This is the help for the now command.
+NAME
+       r2do #{@extended}
+
+SYNOPSIS
+       'r2do #{@extended}' or 'r2do #{@short}' are equivalent
+
+DESCRIPTION
+      The #{@extended} lets view the current category and its tasks
+
+      usage: r2do #{@extended}
+
         EOF
       end
 

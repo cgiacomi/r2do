@@ -19,7 +19,7 @@ module R2do
     class DisplayCategoriesCommand < Command
 
       def initialize(state)
-        super('d', 'display', 'Displays all the categories.')
+        super('l', 'list', 'Displays all the categories.')
 
         @state = state
       end
@@ -41,7 +41,25 @@ module R2do
 
       def help()
         help = <<-EOF
-          This is the help for the display command.
+NAME
+       r2do #{@extended}
+
+SYNOPSIS
+       'r2do #{@extended}' or 'r2do #{@short}' are equivalent
+
+DESCRIPTION
+      The #{@extended} lets you Lists all the available categories in the application.
+
+      The current selected category is marked with and asterisk '*'
+
+      usage: r2do #{@extended}
+
+      e.g.
+
+        Category 1
+      * Category 2
+        Category 3
+
         EOF
       end
 

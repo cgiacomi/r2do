@@ -39,11 +39,6 @@ module R2do
         UI.status(cmd.help())
       end
 
-      def help()
-        help = <<-EOF
-          This is the help for the help command.
-        EOF
-      end
 
     end
 
