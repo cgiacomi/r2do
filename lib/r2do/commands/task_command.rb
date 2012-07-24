@@ -133,7 +133,8 @@ module R2do
       # @return [void]
       def parse_task(args)
         extra = ''
-        task_description = args[1]
+        #args[1..-1].map{|word| word.capitalize}.join(' ')
+        task_description = args[1..-1].join(' ')
         task = @state.current_category.find_by_description(task_description)
         if task.nil?
           task = Task.new(task_description)

@@ -122,7 +122,7 @@ module R2do
       # @return [void]
       def parse_category(args)
         extra = ''
-        category_name = args[1]
+        category_name = args[1..-1].join(' ')
         if @state.contains?(category_name)
           cat = @state.get(category_name)
         else
