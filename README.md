@@ -36,6 +36,10 @@ To create a new category or to switch to an existing category:
 
     r2do category 'My new category'
 
+or
+
+    r2do category My new category
+
 To display the information of the current category:
 
     r2do category --display
@@ -57,7 +61,11 @@ To list all existing categories:
 
 To create a new Task or to select an existing one:
 
-    r2do task MyTask
+    r2do task My Task
+
+or
+
+    r2do task 'My Task'
 
 To view the information regarding a Task:
 
@@ -95,9 +103,7 @@ To see all the available commands:
 
 There are many features presently missing from r2do, which will be implemented in future versions but there is one thing which must be noted here.
 
-1) The ability to edit a Category is lacking at present.
-
-2) The ability to move a Task from one Category to another is also missing.
+1) The ability to move a Task from one Category to another is also missing.
 
 
 ## Contributing
