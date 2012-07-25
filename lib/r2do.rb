@@ -56,7 +56,7 @@ module R2do
     # @return [void]
     def run()
       option = @args[0]
-
+      
       if @args.length > 0
         cmd = find_command(option)
         if not cmd.nil?
