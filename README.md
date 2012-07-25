@@ -71,6 +71,10 @@ To view the information regarding a Task:
 
     r2do task --display
 
+To view all tasks ungrouped:
+
+    r2do task --all
+
 To edit a Task:
 
     r2do task --edit

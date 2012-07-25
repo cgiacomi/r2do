@@ -154,17 +154,18 @@ module R2do
         UI.status("Selected task '#{task_description}'")
       end
 
-      #List all tags in state
-      #@param [void]
-      #@return [void]
+      # List all tags in state
+      #
+      # @param [void]
+      # @return [void]
       def all_tasks()
-        UI.status(" "*4+"Task" + " "*16 + "Category")
-        UI.status(" "*4 + "-"*30)
-        
+        UI.status("    %-30s  %s" % ['Task', 'Category'])
+        UI.status("    " + "-"*51)
+
         @state.categories.each do |name, category|
           category.tasks.each do |task|
             result = StringIO.new
-            result << "    %-15s     %s\n" % [task.description, name]
+            result << "    %-30s  %s\n" % [task.description, name]
             UI.status(result.string)
           end
         end
