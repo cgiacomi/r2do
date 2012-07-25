@@ -18,7 +18,12 @@ end
 
 
 describe "Commands" do
-  
+  before(:each) {
+      Object.stub!(:puts)  
+  }
+  after(:all) {
+    File.delete(".r2do_test.yml")
+  }
   def create(arr)
     app = TestApp.new(arr)
     app.run
@@ -27,9 +32,6 @@ describe "Commands" do
   end
   
   describe "initialize" do 
-    before(:each) {
-      Object.stub!(:puts)  
-    }
     it "should initialize a new session if received `Y`" do
       R2do::UI.stub!(:input) { "Y" }
       Object.should_receive(:puts).with("Initialized a new session of r2do.")
@@ -44,7 +46,6 @@ describe "Commands" do
 
   describe "category" do
     before(:each) do
-      Object.stub!(:puts)
       R2do::UI.stub!(:input) { "Y" }
       create(['i'])
     end
@@ -97,7 +98,6 @@ describe "Commands" do
 
   describe "task" do
     before(:each) do
-      Object.stub!(:puts)
       R2do::UI.stub!(:input) { "Y" }
       create(['i'])
       @app = create(['c', 'Cat'])
@@ -173,7 +173,6 @@ describe "Commands" do
 
   describe "display" do
     before(:each) do
-      Object.stub!(:puts)
       R2do::UI.stub!(:input) { "Y" }
       create(['i'])
     end
@@ -194,7 +193,6 @@ describe "Commands" do
 
   describe "now" do
     it "should return tasks for current category" do
-      Object.stub!(:puts)
       R2do::UI.stub!(:input) { "Y" }
       create(['i'])
 
