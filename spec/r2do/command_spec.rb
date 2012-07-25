@@ -148,9 +148,23 @@ describe "Commands" do
       app = create(['t', '--done'])
       state = app.instance_variable_get(:@state)
       state.current_category.current_task.done?().should eq(true)
-
     end
 
+    it "should return list all tasks in all categories" do
+      create(['t', 'CatTasks1'])
+      create(['t', 'CatTasks2'])
+      create(['t', 'CatTasks3'])
+      create(['c', 'NewCat'])
+      create(['t', 'NewCatTasks1'])
+      create(['t', 'NewCatTasks2'])
+      Object.should_receive(:puts).with(/NewCatTasks1/)
+      Object.should_receive(:puts).with(/NewCatTasks2/)
+      Object.should_receive(:puts).with(/CatTasks1/)
+      Object.should_receive(:puts).with(/CatTasks2/)
+      Object.should_receive(:puts).with(/CatTasks3/)
+      create(['t', '--all'])  
+    end
+    
     it "should thrown error if command not found" do
       Object.should_receive(:puts).with("abort: Invalid argument for the command. See 'r2do -h'.")
       create(["t", "--z"]) 
@@ -164,7 +178,7 @@ describe "Commands" do
       create(['i'])
     end
 
-    it "should return No categories to display if category not found" do
+    it "should return 'No categories to display' if category not found" do
       Object.should_receive(:puts).with("No categories to display")
       create(['l'])
     end
@@ -191,7 +205,6 @@ describe "Commands" do
 
       Object.should_receive(:puts).with(/Task1/)
       create(['now'])
-
     end
   end
 end

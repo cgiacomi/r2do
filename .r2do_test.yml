@@ -1,23 +1,23 @@
 --- !ruby/object:R2do::State
 categories:
-  Cat: &83781200 !ruby/object:R2do::Category
+  Cat: &82075390 !ruby/object:R2do::Category
     name: Cat
     tasks:
     - !ruby/object:R2do::Task
       description: Task1
       done: false
-      date_created: !ruby/object:DateTime 2012-07-25 16:55:55.483478217 +03:00
+      date_created: !ruby/object:DateTime 2012-07-25 18:07:16.355986788 +03:00
       date_done: 
     - !ruby/object:R2do::Task
       description: Task2
       done: false
-      date_created: !ruby/object:DateTime 2012-07-25 16:55:55.504278767 +03:00
+      date_created: !ruby/object:DateTime 2012-07-25 18:07:16.359397420 +03:00
       date_done: 
-    - &84162620 !ruby/object:R2do::Task
+    - &82092810 !ruby/object:R2do::Task
       description: Task3
       done: false
-      date_created: !ruby/object:DateTime 2012-07-25 16:55:55.508061788 +03:00
+      date_created: !ruby/object:DateTime 2012-07-25 18:07:16.363530765 +03:00
       date_done: 
-    current_task: *84162620
-current_category: *83781200
+    current_task: *82092810
+current_category: *82075390
 modified: true
