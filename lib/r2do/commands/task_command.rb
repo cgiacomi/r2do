@@ -25,6 +25,7 @@ module R2do
       DISPLAY   = "--display"
       DELETE    = "--delete"
       EDIT      = "--edit"
+      ALL       = "--all"
 
       def initialize(state)
         super('t', 'task', 'Adds a new task to the current category.')
@@ -61,6 +62,9 @@ module R2do
         elsif option.eql?(DELETE)
           require_selected_task()
           delete_task(args)
+        elsif option.eql?(ALL)
+          require_selected_task()
+          all_tasks()
         elsif option.start_with?("--")
           raise InvalidOptionError, "Invalid argument for the command. See 'r2do -h'."
         else
@@ -148,6 +152,22 @@ module R2do
         @state.modified = true
 
         UI.status("Selected task '#{task_description}'")
+      end
+
+      #List all tags in state
+      #@param [void]
+      #@return [void]
+      def all_tasks()
+        UI.status(" "*4+"Task" + " "*16 + "Category")
+        UI.status(" "*4 + "-"*30)
+        
+        @state.categories.each do |name, category|
+          category.tasks.each do |task|
+            result = StringIO.new
+            result << "    %-15s     %s\n" % [task.description, name]
+            UI.status(result.string)
+          end
+        end
       end
 
       # Checks that a task is currently selected.

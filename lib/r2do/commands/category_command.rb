@@ -42,7 +42,7 @@ module R2do
         end
 
         option = args[1]
-
+        
         if option.eql?(DISPLAY)
           display_current_category(args)
         elsif option.eql?(EDIT)
